@@ -64,6 +64,8 @@ You should also be aware that the Composition API is usually used in conjunction
 
 Beginners often find the Options API easier to understand, but it depends on your previous programming experiences. If you've worked with something similar to the Composition API before then that might feel more natural to you.
 
+Vue 3 has full support for both APIs. You may sometimes see the Options API described as the 'Vue 2 API' or 'legacy API', but labels like those are misleading and unhelpful. New features are still being added to both APIs in Vue 3.
+
 The Options API is the older API, and it's what you'll find in the Vue 2 documentation. It is now possible to use the Composition API with Vue 2, as it was backported from Vue 3 to Vue 2.7. However, the documentation for Vue 2 hasn't been updated to fully document the backported features. You'll find a summary at <https://v2.vuejs.org/v2/guide/migration-vue-2-7.html>.
 
 The Composition API is more flexible and more powerful than the Options API, so it tends to be preferred by advanced users. But that shouldn't discourage you from learning it as a beginner. It isn't necessarily more complicated, but the extra freedom does lead to more ways you can go wrong. When it's used correctly, the code often ends up looking simpler with the Composition API.
