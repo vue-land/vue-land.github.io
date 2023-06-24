@@ -53,8 +53,8 @@ export default defineConfig({
             link: '/faq/component-library'
           },
           {
-            text: 'How can I pass all slots through to a child component?',
-            link: '/faq/passing-all-slots'
+            text: 'How can I pass slots through to a child component?',
+            link: '/faq/forwarding-slots'
           },
           {
             text: 'Can I use Nuxt features without using Nuxt?',
