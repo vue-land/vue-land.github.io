@@ -29,3 +29,4 @@ We've only just started work on this FAQ and most of the answers will be incompl
 - [In my SPA, how to add og tags and why doesn't Twitter/Facebook see them when I add them dynamically?](og-tags)
 - [Why are my dynamic Tailwind classes not working?](missing-tailwind-classes)
 - [Do Vue 2 components work with Vue 3?](vue-2-components-in-vue-3)
+- [How do I run an old project?](running-old-projects)

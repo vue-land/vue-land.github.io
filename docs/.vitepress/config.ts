@@ -99,6 +99,10 @@ export default defineConfig({
           {
             text: 'Do Vue 2 components work with Vue 3?',
             link: '/faq/vue-2-components-in-vue-3'
+          },
+          {
+            text: 'How do I run an old project?',
+            link: '/faq/running-old-projects'
           }
         ]
       }
