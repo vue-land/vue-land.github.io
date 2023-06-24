@@ -15,7 +15,7 @@ We've only just started work on this FAQ and most of the answers will be incompl
 - [How should my components communicate?](component-communication)
 - [Why do my dynamic images not work?](dynamic-images)
 - [When does my page fail to load when I refresh in production?](production-page-refresh)
-- [How do I deploy to GitHub pages?](github-pages)
+- [How do I deploy to GitHub Pages?](github-pages)
 - [Which Vue component library should I use?](component-library)
 - [How can I pass all slots through to a child component?](passing-all-slots)
 - [Can I use Nuxt features without using Nuxt?](nuxt-features)

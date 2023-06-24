@@ -45,7 +45,7 @@ export default defineConfig({
             link: '/faq/production-page-refresh'
           },
           {
-            text: 'How do I deploy to GitHub pages?',
+            text: 'How do I deploy to GitHub Pages?',
             link: '/faq/github-pages'
           },
           {
