@@ -17,7 +17,7 @@ We've only just started work on this FAQ and most of the answers will be incompl
 - [When does my page fail to load when I refresh in production?](production-page-refresh)
 - [How do I deploy to GitHub Pages?](github-pages)
 - [Which Vue component library should I use?](component-library)
-- [How can I pass all slots through to a child component?](passing-all-slots)
+- [How can I pass slots through to a child component?](forwarding-slots)
 - [Can I use Nuxt features without using Nuxt?](nuxt-features)
 - [Can you show me a large, open-source Vue project that I can study?](large-example-applications.html)
 - [When to use `reactive()` and `ref()`?](reactive-ref)
