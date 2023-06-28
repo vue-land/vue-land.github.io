@@ -20,6 +20,17 @@ const textColor = `text-${color}-500`
 
 A dynamic class like this may still work, but only if something else adds the same class to the build. Dynamic classes can appear temperamental, with some values working while others don't. That's because the values that work are used elsewhere, which pulls them into the build.
 
+```js
+// Tailwind finds this and includes the CSS for
+// text-red-500 in the build.
+const headingColor = 'text-red-500'
+
+// Tailwind can't understand this, but it will still work
+// if `color` is 'red' because the CSS for text-red-500
+// has already been included by the previous code.
+const textColor = `text-${color}-500`
+```
+
 Tailwind recommends using a mapping for this kind of scenario:
 
 ```js
@@ -36,11 +47,9 @@ See <https://tailwindcss.com/docs/content-configuration#dynamic-class-names> for
 
 You can also force Tailwind to include specific classes in the build using the `safelist` configuration option. See <https://tailwindcss.com/docs/content-configuration#safelisting-classes> for details.
 
-If you have too many different variants to list in a mapping or safelist, you may want to consider using a dynamic `style`, instead of Tailwind classes. For example, if `color` can take an arbitrary value like `"#669900"`, instead of using dynamic class `:class="\'text-[${color}]\'"` you should use `:style="{ color }"` or `:style="\'color: ${color}\'"`.
-
 ## Tailwind and Vue
 
-As Tailwind treats all code as just text, it has no problem understanding classes bound using `:class` or classes coming from the `<script>` section of an SFC. The following will all work fine:
+As Tailwind treats all code as just text, it has no problem understanding classes bound using `:class`, or classes coming from the `<script>` section of an SFC. The following will all work fine:
 
 ```vue-html
 <p :class="{ 'text-blue-500': condition }">...</p>
@@ -76,3 +85,29 @@ But as noted earlier, it can't handle class names that are constructed dynamical
 ```
 
 As we've already discussed, code like this might still work if those classes are included elsewhere, or if they have been safelisted, but you are creating an implicit dependency on that other code.
+
+Tailwind supports using arbitrary values, such as `text-[#669900]`, but those still can't be created dynamically.
+
+For example, the following won't work (unless something else adds the class to the build):
+
+```vue-html
+<!-- Won't work -->
+<p :class="`text-[${color}]`">...</p>
+```
+
+Instead, you can write this using a dynamic `style`:
+
+```vue-html
+<p :style="{ color }">...</p>
+```
+
+If you need to use modifier prefixes, such as `dark`, `md` or `hover`, then you can use CSS variables in your Tailwind classes. For example:
+
+```vue-html
+<p
+  class="dark:md:hover:text-[color:var(--text-color)]"
+  :style="{ '--text-color': color }"
+>...</p>
+```
+
+See <https://tailwindcss.com/docs/adding-custom-styles#using-arbitrary-values> if you're unfamiliar with the Tailwind syntax in the example above.
