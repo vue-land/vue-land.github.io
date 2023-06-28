@@ -36,7 +36,7 @@ See <https://tailwindcss.com/docs/content-configuration#dynamic-class-names> for
 
 You can also force Tailwind to include specific classes in the build using the `safelist` configuration option. See <https://tailwindcss.com/docs/content-configuration#safelisting-classes> for details.
 
-If you have too many different variants to list in a mapping or safelist, you may want to consider using a dynamic `style`, instead of Tailwind classes.
+If you have too many different variants to list in a mapping or safelist, you may want to consider using a dynamic `style`, instead of Tailwind classes. For example, if `color` can take an arbitrary value like `"#669900"`, instead of using dynamic class `:class="\'text-[${color}]\'"` you should use `:style="{ color }"` or `:style="\'color: ${color}\'"`.
 
 ## Tailwind and Vue
 
