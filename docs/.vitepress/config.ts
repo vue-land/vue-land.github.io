@@ -81,6 +81,10 @@ export default defineConfig({
             link: '/faq/components-in-v-html'
           },
           {
+            text: 'Can I create a local variable in my template?',
+            link: '/faq/template-local-variables'
+          },
+          {
             text: `Why does my logging show an empty/missing value after I've loaded the data?`,
             link: '/faq/logging-after-loading'
           },
