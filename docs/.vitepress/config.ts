@@ -7,8 +7,16 @@ export default defineConfig({
   outDir: '../dist',
 
   themeConfig: {
+    search: {
+      provider: 'local'
+    },
+
     nav: [
       { text: 'FAQ', link: '/faq/' }
+    ],
+
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/vue-land/vue-land.github.io' }
     ],
 
     sidebar: [
@@ -106,10 +114,6 @@ export default defineConfig({
           }
         ]
       }
-    ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vue-land/vue-land.github.io' }
     ]
   }
 })
