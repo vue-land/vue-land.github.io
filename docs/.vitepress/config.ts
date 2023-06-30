@@ -7,6 +7,8 @@ export default defineConfig({
   outDir: '../dist',
 
   themeConfig: {
+    logo: '/logo.svg',
+
     search: {
       provider: 'local'
     },
