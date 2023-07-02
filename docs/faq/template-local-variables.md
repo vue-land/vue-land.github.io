@@ -33,13 +33,15 @@ Ideally there'd be a directive to handle this for us. Maybe something like:
 
 Sadly, that isn't currently a thing.
 
-If we just want to reduce the length of the property paths, we could use destructuring on the `v-for`. For example:
+If we just want to reduce the length of the property path, we could use destructuring on the `v-for`. For example:
 
 ```vue-html
 <div v-for="{ name, joinDate, roles } in users">
 ```
 
 This would then allow us to use just `roles` instead of `user.roles`. But it doesn't help with avoiding the repeated calls to `includes()`.
+
+Are repeated calls to `includes()` actually a problem? In this example, probably not. More generally, there are two problems we might be trying to solve: duplicated logic (DRY) and performance.
 
 ## `computed()`
 
@@ -82,9 +84,70 @@ This adds the `isAdmin` property to each item in our data. We can then iterate o
 
 See it on the [SFC Playground](https://play.vuejs.org/#eNqlVEtPGzEQ/isj95AgkQ0Pceg2IEHLoUh9qKUnloOzdjYGr23Z3hAU5b93/MgG1JAekLLKzsznb755eFfk0phi0XFSkomrrTAeHPeduaiUaI22HlZQ69Z0njNYw8zqFgaIH/TxznHrcqAYR6t4cFoholK1Vs4DIq1ecPYnQs97wuHwAM4vYFUpAItZrUpsRUvNcBhet/EekS2AoigC5HBjC3fJWqHKyFFYLbkrhKplx7gbDmiIDQ4SeB3+1miEZzJOhWPJaHjeGkk9RwtgwsQCFqOZtucVCbQg1OtqKgK1pM7lOJrlxl5BzJn1ZHWYmkRqJHeGqovVKsUVbTms1ygmeDNi2nmvFZRMODqVnOUsG7KeCuAXx7FFpkCUj4/T+Vf5bjSKYFhgCZvUD+j6gp53pL+iaXQ7Ek/G2ER8m4z71pJD4h2uxkw0cVVw+eJUKxI2Q0hufxgvcHUqgioTZ0WolPrpJvq87XieO56Z8/pxh//BLYOvIj8tNscueEX6mKe24T6Fr39/50t874OtZp1E9J4gtlvLLmhMsKtOMZT9AhfVfo1XRKjm1l0vPVduU1QQGncw4iuCN+rzntK3ck+L03gOVxe7uL1t2MK7EOiPxDWI2i4ZbV8IixcjRO5QZBrj/bZneRXSyZOj45OKbHXuIP+mpXx+gx1bxS31OrQFQ87T2Wxvso//SXZtRb0z11uct5pRVJc7do8dc/45fBdq57Bj8fuREk1p/dhYjWMs4QPn/FN0aosVjCxlonMlnJlldi9Hbk6Zfirh2Czjc4qPbaZ0eHQI+VecHUQ43h5c++cSZpInghbHGT4Mx0eZ0VDGcEt6D4qtVBGn86+8RkvWY2IF4c4m3JNgfo40Zy95Iibf5YhK+UdWNHNfAu28Tliy/gtdSPi5)
 
-### Introduce a component
+### Compute a lookup
 
-Whenever you find yourself using `v-for` around some non-trivial content, it's worth considering whether you should extract a separate component for that section. One advantage of extracting a component is that you can use `computed()` inside that component, something like this:
+Rather than reshaping the data to form a single array with all the values, we could instead compute a separate array that just contains the derived values. Something like:
+
+```js
+const isAdmin = computed(() =>
+  users.map(user => user.roles.includes('admin'))
+)
+```
+
+This would give us the array `[true, false, false]`. We can then adjust our `v-for` to give us the index with `v-for="(user, index)"`, allowing us to access `isAdmin[index]` in the template.
+
+See it on the [SFC Playground](https://play.vuejs.org/#eNqlVE1vGyEQ/SsjerAt2et8KIdunUhJm0Mj9UNtbiEHvOA1CQsrYJ2NrP3vHWC9TlQnPVTyyjDzePN4A2zJZV1nm0aQnCxcYWXtwQnf1BdUy6o21sMWClPVjRccOlhZU8EI8aMh3zhhXZ/I5nGWPTijEUF1YbTzIN0lr6SG84FqPJ7A+UVam1WsHofRLpJZo4TLpC5Uw4Ubj1hYPZpMJlQv5kkl6sOJF1WtmBc4A1hwuYHNbGXsOSWRcApSc9FO8C+VogQKxZxDQJjjNN/NtxCr5Duxd3HpPXSURHbkdzXTF9tt0qhZJaDrUE+I9ohl473RkHPp2FIJjryv6QYygF8CjY5cgaonmCeGVxVvDMrnuMscdsUfMPQFI/8l4IolVw6UXszRSxwt5oPDZEq8w3auZBnbiwdmG6CUhJ5KJeyP2ktsNyWoM3FSwpQyTzcx5m0jprt4sRbF44H4g2tDjJKfFu2xG0HJkPPMlsKn9PXv76LF8ZCsDG8Uot9JouFGNUFjgl01mqPsF7io9ms81lKXt+669UK73aaC0IDsIp4SvAWf39n6Xu5pdhrXUd2hi/sbghbehcSwJB6EqO2Ss+qFsHghQuYORYZuUnK/96w/DGnlydHxCSV7nQfIvxmlnt9gR6uEZd4EWzDlPFut3i328R/Frq0sDtZ6i/PWcIbqesfu0THnn8N7UDiHjmXxpYiFlqx4LK3BNubwQQjxKQaNxR3MLOOycTmc1W0fbmduzbh5yuG4buN3ip8tl2x8NIX+l51NIhzvDx775xxWSiSCCtsZnofjo56xZpzjKRkiKJbqLHbnb3mlUXzAxB2EW5twT5L7NdKcveSJmP42R1SqP7OyXPscWONNwpLuDyX74Us=)
+
+The computed data structure doesn't have to be an array. In some cases it might make more sense for it to be a mapping. For example, we might want to create a mapping structure like this:
+
+```json
+{
+  "Adam": true,
+  "Molly": false,
+  "Eric": false
+}
+```
+
+Here we're assuming that the `name` field is a unique identifier that we can use to look up the value we want.
+
+We could create a lookup map using something like this:
+
+```js
+const isAdmin = computed(() => {
+  const map = {} // or Object.create(null)
+
+  for (const user of users) {
+    map[user.name] = user.roles.includes('admin')
+  }
+
+  return map
+})
+```
+
+We'd then use `isAdmin[user.name]` in the template.
+
+See it on the [SFC Playground](https://play.vuejs.org/#eNqlVE1v2zAM/SuEdkgCNE4/0MO8tEC79bACW4ett6oHxVISpbJkSHKawvB/HyU5Toam3aGADVgk9fj4SLohV1WVrWtBcjJ1hZWVByd8XV1SLcvKWA8NFKasai84tDC3poQBxg96f+2EdZ0jm8RTtnJGYwTVhdHOg3RXvJQaLnqo4XAEF5fQUA1oCzElq9DftDCZgLFwN1uJwmeFFcyLoa6VGgU8gDk6h+lKyAVmnhiMEhgEoIdgyTQrxSNixoM1SrhM6kLVXLjhgAVCA8QEaBOwxbKtDtepbtExnSQ9UAk8eFFWCqngCWDK5RrWY6RyQUlkgcVFFpRAoZhznR2P+fbcQMyZb9XYJ9lSEoER2lVMXzZNYh280LZIJVi7iFntvdGQc+nYTAmO2K8he0CA3wI7GvGCpwOZJJR/st4aLINjkTlsCazQ9A0tHyZxzZJCB9JPJygnfk0nvcjkiHiHTZ7LRZwlnM7YXUrCAEkl7F3lJQ4BJcg1YVLClDLPt9HmbS2OtvZiKYqnA/aV2wQbJb8sSmTXgpLe55ldCJ/cN39+ig1+987S8Fph9DtOFN2oOnBMYde15kh7Ly6y/R53SOrFvbvZeKHdtqhANA5njKcEV+7rO6Xv6J5lZ91Qt6jibh1Rwofg6K/EYYjcrjgr94jFVQmeByQZOkrJ406zbiDSzdPjk1NKdjwPgP8wSr28gY5SCcu8CbKgy3k2n7+b7PN/kt1YWRzM9RbmveEM2XWKPaJizr+EP0XhHCqWxeWOiWaseFpYg23M4ZMQ4ks0GosVjC3jsnY5nFebzrwZuyXj5jmHk2oT3zN87WLGhsdH0D3Z+SiG4w7h2L/kMFciAZTYzvCrODnuECvGOU5Jb4n/rCx25zW9hVG8j4kVhM1Ncc+S+yXCnO/jxJhuo2NUyj+2crH0ObDamxRL2r/MXwcg)
+
+The code above uses a `for`/`of` loop to create the mapping object, but there are various other ways you could write it. For example, with `map()` and `Object.fromEntries()`:
+
+```js
+const isAdmin = computed(() => Object.fromEntries(users.map(user => [
+  user.name,
+  user.roles.includes('admin')
+])))
+```
+
+## Introduce a component
+
+Whenever you find yourself using `v-for` around some non-trivial content, it's worth considering whether you should extract a separate component for that repeated section. You can think of repeating content with `v-for` as a form of reuse, and that makes components a natural fit.
+
+In the case of our example, a new component can focus on just rendering a single user, without needing to worry about the loop. There are a couple of ways we might approach this in practice, making `isAdmin` either a `computed()` or a prop.
+
+If you're specifically interested in performance, then introducing a component is a trade off. It will make the initial render slower, as there is an overhead incurred to create each component instance. But the extra components help to split up rendering into smaller pieces, so they can potentially improve the performance of rendering updates. See https://vuejs.org/guide/best-practices/performance.html#update-optimizations for more details on squeezing performance out of component updates.
+
+### Child `computed()`
+
+The first approach is to pass the `user` object as a prop, and then use `computed()` to derive the value we need:
 
 ```js
 import { computed } from 'vue'
@@ -97,6 +160,22 @@ const isAdmin = computed(() => props.user.roles.includes('admin'))
 ```
 
 See it on the [SFC Playground](https://play.vuejs.org/#eNqdVFFP2zAQ/itW9tBWoikM8bCsRYLBw5A20MaeCA9ufE1dHNuynVJU5b/vbIekG6WTJrVSfffd951933WbXGidrmtIsmRqC8O1IxZcrc9zySutjCO/LJgrcJQLSxZGVWSQTnZivnjQgWtM9LBwSldWSURMJ5EfmfHgoNKCOsATIdNdjfV4ocwsT3wx4TJS5gnJ/I82jscJVk4nHU1ylDhbKLngZRDE+2w9dZ4UqtJcgLnVjiuJTBkJGZ+jQqjnmxBzpoaj13ixhOJpT3xlNz6WJ3cGsI015EmXc9SU4GL6+ud32ODvLlkpVgtEH0j+AKtE7XuMsMtaMmx7Bxe6/Roemsvy3l5vHEj7einfqEc2AZ8nOJcvB67et3uanoa6XDb4in+N9n1fbIl/2doBI0078WiFXOIcrCPaKG3JjDBYcAl3/jQM8n6CGbmdr6BwKDrqS7i9YBXOfNZxD4cjMjuPXKkvTI0SYFMuC1EzsMMB9RWDEbIcchjja1IIam3voOz1vCWBI+vkmzwJVVhnNZXn223oOZW0AtI0qOOjLWJeO6ckyRi3dC6AIWHL07EQgsOFuB2eo62cxNI/pG4U6jNsG0fVqq4wdIWR/1O+pHGF9mhOJ/gqb9aoX1qc/YPHdZ4JvQdzXjBa7TgzzMRnHtClsYHHfmna/mPlx+OTj3nSG3UP+TclxMs77LgrYKhTfi8wZR1dLA6KffqH2LXhxV6t9zjvFaPYXbsyj/hi1r14SxbW4osFk0ahOS2eSqNwjzPyAQA+h6AyeIOxoYzXNiNnetOGN2O7pEw9Z+REb8L3FL+mnNPh8RFpP+nZKMBx5Diwl4wsBESCCvfZe/jkuGXUlDH8m+gi2Gwu0zCdt+2VSrAOE27gjRZxz5y5JdKc7fIETGvAgIr6Y8PLpcsIrZ2K2KT5DYEQGu0=).
+
+### Child prop
+
+The other way we could approach it is to introduce a prop for `isAdmin`. While we could pass `user` and `isAdmin` as props, it might be cleaner in this example to have props for `isAdmin`, `joinDate` and `name` instead:
+
+```js
+defineProps({
+  isAdmin: Boolean,
+  joinDate: String,
+  name: String
+})
+```
+
+See it on the [SFC Playground](https://play.vuejs.org/#eNqdVE1vGyEQ/Stoe3Aixet8KIdSN1LS5NBIbaMmPWVzwAu7xmEBAesPWf7vHWAXu43jSpVsycy8efNg3nidXWudz1uW4WxsS8O1Q5a5Vl8VkjdaGYd+WWZumSNcWFQZ1aBBPtqJ+eJBAreQ2MLCKZ9ZJQExHkV+YIaDY40WxDE4ITTe4fNnhObDSpnPReYZEJeRt8hiEnM7JLThsgPkRglmcy5L0VJmjwYhOThO+JnickihW1/gA7dwTghJmpT0v2NiBOrGoyQ1O8mcLZWseB0uBW+29rAiK1WjuWDmh3ZcSRCKUcj4HBFCLe5DzJmWnfTxcsrK1z3xmV36WJE9GAZy5qAl5RwxNXMxfff4nS3hd0o2irYC0AeSP5lVovUaI+ymlRRk7+CC2q9hmFzWT/Zu6Zi0/aW8UI/cBHyRwey/HLj6Vu5FfhHqCrmBV/zLPnu8R1nFJXswStujQMfttR8qRjcKhk1kENCPEaNHZ0BuCPrx9QFod3zYeZTPUSmItd30iwzh/rxGwUi4bw7ys1AFdVYTebVeh25os4EWPtAlJ61zSiJMuSUTwShwdRSJACGYBYsLEwwXK0ex9I8u93BL5N0LL7tOd/6/pjck7tKeduMRvMUbw29XGKb07HFpunFPvI2uKWl2PBTW0WeewU9RwMvW3mn1fOX56dl53LVoqT3k35QQq3fYwdXMEKe8gyFlHamqg80+/qPZneHl3l7vcT4pSkBdZ+4XeDHrVv7fqLQWXiwPf2Ch0YSUr7VRsHEYfWCMfQpBZeAGQ0Moby1Gl3rZhZdDOyVULTA608vwvYCvqSfk6PQEdZ/88jjAYeQwsBVGlWCRoIHN8849O+0YNaEUFiJFQGwh8zCdt/JqJWjChBt4o0XcglM3BZrLXZ6A6QwYULH/0PB66jAirVMRm21+A+L8G8E=).
+
+The value of `isAdmin` is calculated in the parent template. That calculation will be repeated each time the parent component re-renders. However, it only happens once per iteration (rather than 3 times), and the children won't be re-rendered unless one of the props changes.
 
 ## The `v-for` hack
 
