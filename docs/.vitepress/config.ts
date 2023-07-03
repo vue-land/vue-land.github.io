@@ -91,6 +91,10 @@ export default defineConfig({
             link: '/faq/components-in-v-html'
           },
           {
+            text: 'How do I create unique element ids with Vue?',
+            link: '/faq/unique-element-ids'
+          },
+          {
             text: `Why does my logging show an empty/missing value after I've loaded the data?`,
             link: '/faq/logging-after-loading'
           },
