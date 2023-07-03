@@ -212,3 +212,21 @@ We can then use it something like:
 ```
 
 See it on the [SFC Playground](https://play.vuejs.org/#eNqdVFtr2zAU/itCe0gDidMLfZiXdbRbGSvswlb2UvVBsWRHrSwJXdKU4P++I8lxypZ20BCDdc53vvPpXLzB58YUq8BxieeussJ45LgP5owo0RptPQqOW4dqq1s0KmbpVNw5rUZEEVUHVXmhFfrM/W8qAz8wVhs3QRvkpPYOdWO0IQohC6RWZeOHgvGaBukzuFjFwDFRHVHzWRYB6eHgeWsk9RxOCM23KdBqWmv7nuCoBQmVFRKMykTUOwqrJXeFUJUMjLuDEWWtUKMx4FbTKANwwp1HI8EpAaRgYoUqSZ3rSSLp9rxBiaFEfRTqhjiIdIaqs80maSkUbTnqOrhMtA6YRfAeSlUy4ehCcrZHQfz95NCBRBR5huhZDv8r5ZUGJQxqVKJt9jswfQLL6xVc0FzUZ3LPZ1Cn3JPZtilwnM+GfuEJ9q7SqhZNmhWYrjQFBFe6NUJy+93EsYGuge7MSjCVUj9cJZu3gU+29mrJq/s99ju3jjaCf1gomV1xggefp7bhPrsvf33ja3gfnK1mQQL6BSc0QcsQNWbYRVAMZD/BJbVf0o4I1Vy7y7Xnym0vFYVGZJfwBMOKfXzh6ju5J8VJioN1gCru1g1KeBMdQ0gajqTtnNH2ibA0+NFzAyJzb293NeuHI0ceHx4dE7zTuYf8q5by8Rl2KBW31OtYFnA5T+v6xWRv/5Ps0opqb67nOK81o6Cur9gtVMz5x7j3lXNQsSJ9IlKiBa3uG6uhjSV6wzl/l4zawg2mljIRXIlOzbo3r6duSZl+KNGRWafnBB7bLOjB4QT1/+J0nOCwTTD2jyWqJc8ELbQzfiqODntGQxmDKRksIJaoInXnX3mNlmzApBvELc64B8H8EmhOn/IkTL/bCZXzT61olr5ENHidsbj7A3K37M4=).
+
+Alternatively, we could use the attribute name as the variable name, allowing for multiple variables to be introduced at the same time:
+
+```js
+function GetValue(props, { slots }) {
+  return slots?.default(props)
+}
+```
+
+With:
+
+```vue-html
+<GetValue :isAdmin="user.roles.includes('admin')" v-slot="{ isAdmin }">
+  <!-- isAdmin is now available here -->
+</GetValue>
+```
+
+See it on the [SFC Playground](https://play.vuejs.org/#eNqdVF1r2zAU/SsX7SENJE670od5WUe7lbHCPtjKXqo+KJacqJUlI8lpivF/35XkOGFLOxjYYN177rlH98MtuajrbN0IkpO5K6ysPTjhm/qcalnVxnponLAOSmsqGGWzeMrundEjqqkuG114aTR8Ev4XU404qq2p3QRacMp4B90YWqoBLJJanYzvMy5K1iifwGOqO6rns5QeE+PBi6pWzAs8Acy35LCelsa+oySoAKmTNkogl+6CV1L3rswaJVwmdaEaLtzRiAXnaIzI9TRIQFwLfQx0lMQ0mIjLNRSKOdcTBertuYXIkh+Iw0hXM33etlFRplkloOvwSsE6YBaN91iqnEvHFkpwJO259pgAfgjsQCQKPEP0LIX/kfLaoBKOlcphm/0eTR/R8v8KLlkq7TO55zOsU+rMbNsaPM5nQ9fIhHhXGF3KZZwVnK44BZQUpqqlEvZbHcYGe4e6EyslTCnzeB1t3jZisrUXK1E8HLDfu02wUfLdYsnsWlAy+DyzS+GT++rnV7HB78FZGd4oRL/gxCYY1QSNCXbZaI6y93BR7ee4I1Ivb9zVxgvttpcKQgOyi3hKcMU+vHD1ndzT7DTG4VJgFXfrhiW8DY4hJA5H1HbBWbUnLA5/8NyiyNTbu13N+uFIka+PT15TstN5gPyLUerpGXYslbDMm1AWdDnPyvLFZG/+kezKyuJgruc4bwxnqK6v2B1WzPmnsPuFc1ixLP4oYqIFKx6W1mAbc3glhHgbjcbiDaaWcdm4HM7qTW/eTN2KcfOYw0m9ie8pvna5YEfHE+if7Gwc4bhNOPZPOZRKJIIK2xl+FSfHPWPNOMcpGSwoluosdudveUuj+ICJNwhbnHCPkvsV0pzt80RMv9sRlfJPrVyufA6s8SZhSfcbSgvsYw==)
