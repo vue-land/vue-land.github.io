@@ -7,8 +7,18 @@ export default defineConfig({
   outDir: '../dist',
 
   themeConfig: {
+    logo: '/logo.svg',
+
+    search: {
+      provider: 'local'
+    },
+
     nav: [
       { text: 'FAQ', link: '/faq/' }
+    ],
+
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/vue-land/vue-land.github.io' }
     ],
 
     sidebar: [
@@ -85,6 +95,10 @@ export default defineConfig({
             link: '/faq/template-local-variables'
           },
           {
+            text: 'How do I create unique element ids with Vue?',
+            link: '/faq/unique-element-ids'
+          },
+          {
             text: `Why does my logging show an empty/missing value after I've loaded the data?`,
             link: '/faq/logging-after-loading'
           },
@@ -110,10 +124,6 @@ export default defineConfig({
           }
         ]
       }
-    ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vue-land/vue-land.github.io' }
     ]
   }
 })

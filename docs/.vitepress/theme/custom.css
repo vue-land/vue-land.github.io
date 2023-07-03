@@ -1,0 +1,13 @@
+.VPSidebarItem.level-1 .VPLink::before {
+  border: 3px solid transparent;
+  border-left: 4px solid var(--vp-c-text-2);
+  border-right: none;
+  content: "";
+  left: -10px;
+  position: absolute;
+  top: 13px;
+}
+
+.VPSidebarItem.level-1.is-active .VPLink::before {
+  border-left-color: var(--vp-c-brand);
+}

@@ -51,6 +51,7 @@ We've only just started work on this FAQ and most of the answers will be incompl
 - [Can I create a local variable in my template?](template-local-variables)
 - Why does selecting one item select them all?
 - Why are my template refs not working? <!-- `v-for="i in foo" :ref="`xxx${i}`"` and `ref.value.foo()` failing due to `v-for`. -->
+- [How do I create unique element ids with Vue?](unique-element-ids)
 
 ---
 
