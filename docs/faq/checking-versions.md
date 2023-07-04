@@ -1,11 +1,11 @@
 ---
 outline: [2, 3]
 ---
-# How do I check which version I'm using?
+# How do I check which Vue version something is using?
 
 ## Identifying Vue 2 and Vue 3
 
-It usually isn't necessary to know exactly which version of Vue you're using, but it is important to know whether it's Vue 2 or Vue 3.
+It usually isn't necessary to know exactly which version of Vue something is using, but it is important to know whether it's Vue 2 or Vue 3.
 
 ### Based on the code
 
@@ -79,7 +79,8 @@ That tells you that it is using `2.6.8` or above. The installed version must mat
 
 While the `package.json` will typically tell you the minimum version number, it usually won't be much help in identifying the exact version that is installed. If you need that then you've got a few options:
 
-- Check the `version` property in your code. In Vue 2 that'll be in `Vue.version`. In Vue 3 you'd typically access it using `import { version } from 'vue'`, or via `app.version`.
+- If you're running a development build of the application, Vue Devtools will tell you which version it is using. It's shown in the menu for selecting an application.
+- You can check the `version` property in your code. In Vue 2 that'll be in `Vue.version`. In Vue 3 you'd typically access it using `import { version } from 'vue'`, or via `app.version`.
 - Check the lock file. That'll be `package-lock.json`, `yarn.lock` or `pnpm-lock.yaml`, depending on which package manager the project uses.
 - `npm list` or `yarn list` or `pnpm list`, depending on which package manager you're using.
 
