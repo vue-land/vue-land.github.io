@@ -76,11 +76,25 @@ For a quick way to play with Vue, try the [Vue SFC Playground](https://play.vuej
 
 To create something a bit more real, you can use [create-vue](https://github.com/vuejs/create-vue). That's the recommended way to scaffold a new project with Vue and Vite. The command to run is:
 
-```sh
+::: code-group
+
+```sh [npm]
 npm init vue@latest
 ```
 
-Note that the command is `init`, not `install`. Using `init` will run the `create-vue` helper to scaffold your project, whereas `install` would just add the `vue` package to an existing application.
+```sh [yarn]
+yarn create vue
+```
+
+```sh [pnpm]
+pnpm create vue
+```
+
+:::
+
+Note that the `npm` command is `init`, not `install`. Using `init` will run the `create-vue` helper to scaffold your project, whereas `install` would just add the `vue` package to an existing application.
+
+You could also use `npm create vue@latest` if you prefer, as `create` is an alias for `init`.
 
 ## What else do I need to learn?
 
@@ -115,6 +129,7 @@ You should try to find out as much as possible about the project, so that you ca
 - Is it using the Options API or Composition API? If it's the latter, are they using `<script setup>`?
 - Do they use Pinia or Vuex for state management?
 - Are they using Vue Router?
+- Are they using Nuxt?
 - What other libraries are they using?
 
 The main focus of your learning should be on Vue fundamentals rather than the other libraries, as everything else depends on understanding Vue itself. But some familiarity with the other libraries will make it a bit easier to orient yourself with your new codebase.
