@@ -55,7 +55,7 @@ export default defineConfig({
             link: '/faq/cookies-local-storage'
           },
           {
-            text: `How do I check which version I'm using?`,
+            text: `How do I check which Vue version something is using?`,
             link: '/faq/checking-versions'
           },
           {

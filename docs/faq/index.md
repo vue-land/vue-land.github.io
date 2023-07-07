@@ -29,7 +29,7 @@ We've only just started work on this FAQ and most of the answers will be incompl
 
 <!-- Working with npm -->
 
-- [How do I check which version I'm using?](checking-versions)
+- [How do I check which Vue version something is using?](checking-versions)
 - [How do I run an old project?](running-old-projects)
 
 ---
