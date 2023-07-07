@@ -91,6 +91,10 @@ export default defineConfig({
             link: '/faq/components-in-v-html'
           },
           {
+            text: 'Can I create a local variable in my template?',
+            link: '/faq/template-local-variables'
+          },
+          {
             text: 'How do I create unique element ids with Vue?',
             link: '/faq/unique-element-ids'
           },
