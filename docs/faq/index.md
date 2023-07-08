@@ -49,8 +49,8 @@ We've only just started work on this FAQ and most of the answers will be incompl
 - [How can I make Vue 'wait' for the data before rendering?](delaying-rendering)
 - [Why isn't `v-html` rendering my components?](components-in-v-html)
 - [Can I create a local variable in my template?](template-local-variables)
-- Why does selecting one item select them all?
-- Why are my template refs not working? <!-- `v-for="i in foo" :ref="`xxx${i}`"` and `ref.value.foo()` failing due to `v-for`. -->
+- [Why does selecting one item select them all?](independent-selections)
+- [Why are my template refs not working?](template-refs)
 - [How do I create unique element ids with Vue?](unique-element-ids)
 
 ---
