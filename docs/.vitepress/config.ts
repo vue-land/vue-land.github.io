@@ -94,6 +94,14 @@ export default defineConfig({
             text: 'Can I create a local variable in my template?',
             link: '/faq/template-local-variables'
           },
+          // {
+          //   text: 'Why does selecting one item select them all?',
+          //   link: '/faq/independent-selections'
+          // },
+          // {
+          //   text: 'Why are my template refs not working?',
+          //   link: '/faq/template-refs'
+          // },
           {
             text: 'How do I create unique element ids with Vue?',
             link: '/faq/unique-element-ids'
