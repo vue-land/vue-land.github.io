@@ -70,10 +70,10 @@ export default defineConfig({
             text: 'How do I deploy to GitHub Pages?',
             link: '/faq/github-pages'
           },
-          // {
-          //   text: `In my SPA, how to add og tags and why doesn't Twitter/Facebook see them when I add them dynamically?`,
-          //   link: '/faq/og-tags'
-          // },
+          {
+            text: 'How do I add dynamic <code>&lt;meta&gt;</code> tags to my application?',
+            link: '/faq/dynamic-meta-tags'
+          },
           // {
           //   text: 'How should my components communicate?',
           //   link: '/faq/component-communication'

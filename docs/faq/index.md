@@ -38,7 +38,7 @@ We've only just started work on this FAQ and most of the answers will be incompl
 
 - [Why does my page fail to load when I refresh in production?](production-page-refresh)
 - [How do I deploy to GitHub Pages?](github-pages)
-- [In my SPA, how to add og tags and why doesn't Twitter/Facebook see them when I add them dynamically?](og-tags)
+- [How do I add dynamic `<meta>` tags to my application?](dynamic-meta-tags)
 
 ---
 
