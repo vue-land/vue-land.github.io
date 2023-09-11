@@ -89,7 +89,7 @@ It's pretty much the same idea in both cases, and you can use the same config fo
 
 There are a few bits you may need to change to match your build:
 
-- The branch on GitHub to build. The examples use `main`, which is likely what you'd want.
+- The branch on GitHub to build. The examples use `main`, which is likely what you'd want. If you aren't deploying from your default branch then you'll also need to go into **Settings** / **Environment** / **github-pages** and configure the **Deployment branches**.
 - The build command. The examples above use `npm run build` and `npm run docs:build` respectively, but you can change that to run the relevant target from the `scripts` section of your `package.json`.
 - The path of the build artifacts created by your build. The examples above use `./dist` and `docs/.vitepress/dist` respectively. If your build puts the built files somewhere else then you'll need to change that path.
 - The Node version.
@@ -117,9 +117,9 @@ To give a more specific example, let's imagine this site is using Vue Router (it
 4. Then the user clicks on a `<RouterLink>` to navigate to `/user`. That's fine, Vue Router updates the browser URL to `https://vue-land.github.com/user` and shows the relevant component in the `<RouterView>`. The browser won't make a request to the server to load the new URL, it all gets handled client-side by the router.
 5. Now the user hits refresh. The browser now sends an HTTP request to the server asking for `https://vue-land.github.com/user`. But GitHub Pages has no idea what `/user` is, so it returns a 404.
 
-If you've only got a fixed set of routes, without any `params`, then you could configure your build to make copies of the `index.html` in all the relevant folders. For example, if we copied `index.html` to `user/index.html`, then GitHub Pages would have been able to serve it up in response to the request from the example above.
+If you've only got a fixed set of routes, without any `params`, then you could configure your build to make copies of the `index.html` in all the relevant folders. For example, if we copied `index.html` to `user/index.html`, then GitHub Pages would have been able to serve it up in response to the request from the example above. If you need different `<meta>` tags for each page then see [How do I add dynamic `<meta>` tags to my application?](./dynamic-meta-tags) for more discussion of that topic.
 
-Another option is to use `index.html` as your 404 page. GitHub Pages serves up the file `404.html` for missing files, so you could use your `index.html` as `404.html`. The problem is you'll still get a 404 status code, so any crawlers will still think that the page wasn't found. The pages are unlikely to end up in search engines if the search engine thinks they're a 404 page.
+Another option is to use `index.html` as your 404 page. GitHub Pages serves up the file `404.html` for missing files, so you could use your `index.html` as `404.html`. The problem is you'll still get a 404 status code, so any crawlers will still think that the page wasn't found. The pages are unlikely to end up in search engines if the search engine thinks they're a 404 page. Some other hosting providers solve this problem by supporting a `200.html` file instead, but GitHub Pages doesn't support this: see <https://github.com/orgs/community/discussions/27676>.
 
 The final option is to use [hash mode routing](https://router.vuejs.org/guide/essentials/history-mode.html#hash-mode) instead, with `createWebHashHistory()`. Revisiting our earlier example, that would translate the `/user` route into a URL of `https://vue-land.github.com/#/user`. The bit after the `#` doesn't get sent to the server by the browser, so refreshing will just load `index.html`.
 
