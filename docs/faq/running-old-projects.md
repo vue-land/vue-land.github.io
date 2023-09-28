@@ -110,7 +110,7 @@ This includes Vue CLI projects, especially those on version 4.
 
 This is caused by Node and OpenSSL trying to keep up with the latest security best practices, but older dependencies can't retrospectively comply with the new standards.
 
-Your options are:
+Upgrading webpack would fix the problem, but it usually isn't practical if you just want to get an old project running. You've got two alternative solutions to choose from:
 
 - Use an older version of Node.
 - Set the `NODE_OPTIONS` environment variable to `--openssl-legacy-provider`. Typically, that'll be using either `SET NODE_OPTIONS=--openssl-legacy-provider` or `export NODE_OPTIONS=--openssl-legacy-provider`, depending on your operating system.
