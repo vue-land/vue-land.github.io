@@ -8,6 +8,6 @@
   },
   "devDependencies": {
     "rimraf": "^5.0.1",
-    "vitepress": "1.0.0-rc.12"
+    "vitepress": "1.0.0-rc.20"
   }
 }
