@@ -67,6 +67,10 @@ export default defineConfig({
           //   link: '/faq/production-page-refresh'
           // },
           {
+            text: 'Why do I get a blank page in production?',
+            link: '/faq/blank-page-in-production'
+          },
+          {
             text: 'How do I deploy to GitHub Pages?',
             link: '/faq/github-pages'
           },
