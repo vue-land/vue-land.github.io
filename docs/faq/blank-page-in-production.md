@@ -24,6 +24,8 @@ You should check the browser console for both your production and dev environmen
 
 Even if your application is working in development, there may still be warnings. Any warnings during dev need to be fixed, as they may lead to failures in production.
 
+The browser console allows messages to be filtered by log level. Make sure you haven't turned off warnings or errors.
+
 If you're seeing JavaScript errors in production then those likely have the same underlying cause as the blank page. Those need to be investigated and debugged. The section [Run the production build locally](#run-the-production-build-locally) below is probably the most relevant in that scenario.
 
 If you're seeing `404` errors for loading files then see the section [Check your `base` path](#check-your-base-path).
@@ -176,7 +178,7 @@ router.beforeEach(async (to, from) => {
 
 This guard is awaiting the promise returned by `canUserAccess(to)`, but it will get stuck if the promise never settles.
 
-In practice, promises that remain pending indefinitely are rare, so this kind of problem is more likely to occur if you're using the `next` function. This is one reasons why using `next` is discouraged. It's quite easy to forget to call `next()` in one of the branches of your code.
+In practice, promises that remain pending indefinitely are rare, so this kind of problem is more likely to occur if you're using the `next` function. This is one reason why using `next` is discouraged. It's quite easy to forget to call `next()` in one of the branches of your code.
 
 Problems with guards should impact development and production equally, but there can be subtle differences between the environments that lead to the code going down different branches. For example, the timing of the requests might be different. Or differences caused by old cookies or data in local storage.
 
