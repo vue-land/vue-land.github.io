@@ -37,6 +37,7 @@ We've only just started work on this FAQ and most of the answers will be incompl
 <!-- Deployment -->
 
 - [Why does my page fail to load when I refresh in production?](production-page-refresh)
+- [Why do I get a blank page in production?](blank-page-in-production)
 - [How do I deploy to GitHub Pages?](github-pages)
 - [How do I add dynamic `<meta>` tags to my application?](dynamic-meta-tags)
 
