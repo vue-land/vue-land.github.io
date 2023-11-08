@@ -82,6 +82,18 @@ export default defineConfig({
           //   text: 'How should my components communicate?',
           //   link: '/faq/component-communication'
           // },
+          // {
+          //   text: 'How do I call a method in a child component?',
+          //   link: '/faq/invoking-child-methods'
+          // },
+          // {
+          //   text: 'Why are my template refs not working?',
+          //   link: '/faq/template-refs'
+          // },
+          // {
+          //   text: 'How can I share state with a composable?',
+          //   link: '/faq/sharing-state'
+          // },
           {
             text: 'How can I pass slots through to a child component?',
             link: '/faq/forwarding-slots'
@@ -99,17 +111,21 @@ export default defineConfig({
             link: '/faq/template-local-variables'
           },
           // {
-          //   text: 'Why does selecting one item select them all?',
-          //   link: '/faq/independent-selections'
+          //   text: 'Can I use JavaScript classes for my reactive data?',
+          //   link: '/faq/reactivity-and-classes'
           // },
           // {
-          //   text: 'Why are my template refs not working?',
-          //   link: '/faq/template-refs'
+          //   text: 'Why does selecting one item select them all?',
+          //   link: '/faq/independent-selections'
           // },
           {
             text: 'How do I create unique element ids with Vue?',
             link: '/faq/unique-element-ids'
           },
+          // {
+          //   text: `Why can't I use the current route inside <code>App.vue</code>?`,
+          //   link: '/faq/accessing-the-route'
+          // },
           // {
           //   text: `Why does my logging show an empty/missing value after I've loaded the data?`,
           //   link: '/faq/logging-after-loading'

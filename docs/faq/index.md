@@ -5,7 +5,7 @@ This FAQ aims to answer some of the most common programming questions that we ge
 It is not a substitute for the official Vue documentation, available at <https://vuejs.org/>. Those docs include an FAQ for Vue itself at <https://vuejs.org/about/faq.html>.
 
 ::: warning Work in progress
-We've only just started work on this FAQ and most of the answers will be incomplete. Some questions don't really have an answer yet, they're just placeholders.
+Only about half the questions have complete answers. Those questions are listed in the sidebar on the left. The other questions are just stubs.
 :::
 
 ---
@@ -46,13 +46,17 @@ We've only just started work on this FAQ and most of the answers will be incompl
 <!-- Vue code patterns -->
 
 - [How should my components communicate?](component-communication)
+- [How do I call a method in a child component?](invoking-child-methods)
+- [Why are my template refs not working?](template-refs)
+- [How can I share state with a composable?](sharing-state)
 - [How can I pass all slots through to a child component?](forwarding-slots)
 - [How can I make Vue 'wait' for the data before rendering?](delaying-rendering)
 - [Why isn't `v-html` rendering my components?](components-in-v-html)
 - [Can I create a local variable in my template?](template-local-variables)
+- [Can I use JavaScript classes for my reactive data?](reactivity-and-classes)
 - [Why does selecting one item select them all?](independent-selections)
-- [Why are my template refs not working?](template-refs)
 - [How do I create unique element ids with Vue?](unique-element-ids)
+- [Why can't I use the current route inside `App.vue`?](accessing-the-route)
 
 ---
 
