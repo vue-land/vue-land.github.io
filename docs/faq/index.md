@@ -56,7 +56,7 @@ Only about half the questions have complete answers. Those questions are listed 
 - [Can I use JavaScript classes for my reactive data?](reactivity-and-classes)
 - [Why does selecting one item select them all?](independent-selections)
 - [How do I create unique element ids with Vue?](unique-element-ids)
-- [Why can't I use the current route inside `App.vue`?](accessing-the-route)
+- [Why can't I use the current route in `App.vue`?](accessing-the-route)
 
 ---
 
