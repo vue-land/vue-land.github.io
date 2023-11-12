@@ -26,7 +26,7 @@ If you do want a library that does it all for you, there are plenty to choose fr
 - https://skirtles-code.github.io/vue-examples/component-libraries.html
 - https://ui-libs.vercel.app/
 
-Having a lot of downloads doesn't necessarily mean that a library is better than one with fewer downloads. When assessing the number of downloads you should keep in mind that newer libraries are at a massive disadvantage. Some libraries are particularly strong in a specific area, which may make them more suitable for your project than they would be for a more general audience.
+GitHub stars or npm download statistics can be useful when assessing the popularity of a library, but they need to be interpreted carefully. Newer libraries are at a massive disadvantage in those counts. Some libraries are particularly strong in a specific area, which may make them more suitable for your project than they would be for a more general audience.
 
 ## Core features
 
@@ -38,7 +38,8 @@ You might be able to rule out some of the options based on the features they pro
 - Mobile support, e.g. responsiveness, touch screens, gestures.
 - Internationalization.
 - RTL support.
-- Support for your existing tooling.
+- Level of TypeScript support.
+- Tooling requirements. e.g. Build tools, testing tools, IDEs.
 
 ## Explore the components
 
