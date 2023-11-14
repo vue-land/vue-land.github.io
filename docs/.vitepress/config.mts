@@ -122,10 +122,10 @@ export default defineConfig({
             text: 'How do I create unique element ids with Vue?',
             link: '/faq/unique-element-ids'
           },
-          // {
-          //   text: `Why can't I use the current route inside <code>App.vue</code>?`,
-          //   link: '/faq/accessing-the-route'
-          // },
+          {
+            text: `Why can't I use the current route in <code>App.vue</code>?`,
+            link: '/faq/accessing-the-route'
+          },
           // {
           //   text: `Why does my logging show an empty/missing value after I've loaded the data?`,
           //   link: '/faq/logging-after-loading'
