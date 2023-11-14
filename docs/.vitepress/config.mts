@@ -34,10 +34,10 @@ export default defineConfig({
           //   text: 'Can you show me a large, open-source Vue project that I can study?',
           //   link: '/faq/large-example-applications'
           // },
-          // {
-          //   text: 'Which Vue component library should I use?',
-          //   link: '/faq/component-library'
-          // },
+          {
+            text: 'Which Vue component library should I use?',
+            link: '/faq/component-library'
+          },
           {
             text: 'What folder structure should I use for my Vue project?',
             link: '/faq/folder-structure'
