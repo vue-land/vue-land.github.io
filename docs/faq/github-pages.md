@@ -111,17 +111,17 @@ The initial load for the root route, `/`, should be OK, as that will just load t
 
 To give a more specific example, let's imagine this site is using Vue Router (it isn't, but let's pretend). Let's assume we have routes for `/` and `/user`.
 
-1. First we load the site at `https://vue-land.github.com/`. That sends an HTTP request to GitHub, which will return the `index.html`.
+1. First we load the site at `https://vue-land.github.io/`. That sends an HTTP request to GitHub, which will return the `index.html`.
 2. `index.html` will send further HTTP requests to the server to load assets such as the `.js` and `.css` files.
 3. The `.js` files include code to initiate Vue Router. It sees that we are at `/`, identifies the corresponding route and shows the appropriate component in the `<RouterView>`.
-4. Then the user clicks on a `<RouterLink>` to navigate to `/user`. That's fine, Vue Router updates the browser URL to `https://vue-land.github.com/user` and shows the relevant component in the `<RouterView>`. The browser won't make a request to the server to load the new URL, it all gets handled client-side by the router.
-5. Now the user hits refresh. The browser now sends an HTTP request to the server asking for `https://vue-land.github.com/user`. But GitHub Pages has no idea what `/user` is, so it returns a 404.
+4. Then the user clicks on a `<RouterLink>` to navigate to `/user`. That's fine, Vue Router updates the browser URL to `https://vue-land.github.io/user` and shows the relevant component in the `<RouterView>`. The browser won't make a request to the server to load the new URL, it all gets handled client-side by the router.
+5. Now the user hits refresh. The browser now sends an HTTP request to the server asking for `https://vue-land.github.io/user`. But GitHub Pages has no idea what `/user` is, so it returns a 404.
 
 If you've only got a fixed set of routes, without any `params`, then you could configure your build to make copies of the `index.html` in all the relevant folders. For example, if we copied `index.html` to `user/index.html`, then GitHub Pages would have been able to serve it up in response to the request from the example above. If you need different `<meta>` tags for each page then see [How do I add dynamic `<meta>` tags to my application?](./dynamic-meta-tags) for more discussion of that topic.
 
 Another option is to use `index.html` as your 404 page. GitHub Pages serves up the file `404.html` for missing files, so you could use your `index.html` as `404.html`. The problem is you'll still get a 404 status code, so any crawlers will still think that the page wasn't found. The pages are unlikely to end up in search engines if the search engine thinks they're a 404 page. Some other hosting providers solve this problem by supporting a `200.html` file instead, but GitHub Pages doesn't support this: see <https://github.com/orgs/community/discussions/27676>.
 
-The final option is to use [hash mode routing](https://router.vuejs.org/guide/essentials/history-mode.html#hash-mode) instead, with `createWebHashHistory()`. Revisiting our earlier example, that would translate the `/user` route into a URL of `https://vue-land.github.com/#/user`. The bit after the `#` doesn't get sent to the server by the browser, so refreshing will just load `index.html`.
+The final option is to use [hash mode routing](https://router.vuejs.org/guide/essentials/history-mode.html#hash-mode) instead, with `createWebHashHistory()`. Revisiting our earlier example, that would translate the `/user` route into a URL of `https://vue-land.github.io/#/user`. The bit after the `#` doesn't get sent to the server by the browser, so refreshing will just load `index.html`.
 
 If you do decide to stick with `createWebHistory()`, you'll also need to ensure that it's configured to use your base path. The router needs to know that the base path is not part of the route path. This is only a problem if the base path is not `/`, as that's the default used by `createWebHistory()`.
 
