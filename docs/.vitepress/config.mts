@@ -62,10 +62,14 @@ export default defineConfig({
             text: 'How do I run an old project?',
             link: '/faq/running-old-projects'
           },
-          // {
-          //   text: 'Why does my page fail to load when I refresh in production?',
-          //   link: '/faq/production-page-refresh'
-          // },
+          {
+            text: 'Why is there a <code>#</code> before my route path?',
+            link: '/faq/hash-before-route-path'
+          },
+          {
+            text: 'Why does my page fail to load when I refresh in production?',
+            link: '/faq/production-page-refresh'
+          },
           {
             text: 'Why do I get a blank page in production?',
             link: '/faq/blank-page-in-production'
