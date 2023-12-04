@@ -36,6 +36,7 @@ Only about half the questions have complete answers. Those questions are listed 
 
 <!-- Deployment -->
 
+- [Why is there a `#` before my route path?](hash-before-route-path)
 - [Why does my page fail to load when I refresh in production?](production-page-refresh)
 - [Why do I get a blank page in production?](blank-page-in-production)
 - [How do I deploy to GitHub Pages?](github-pages)
