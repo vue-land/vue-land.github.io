@@ -18,6 +18,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
+      { icon: 'discord', link: 'https://chat.vuejs.org/' },
       { icon: 'github', link: 'https://github.com/vue-land/vue-land.github.io' }
     ],
 
