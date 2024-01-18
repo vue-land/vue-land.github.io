@@ -5,6 +5,7 @@ export default defineConfig({
   description: 'An FAQ for Vue Land',
   base: '/',
   outDir: '../dist',
+  cleanUrls: true,
 
   themeConfig: {
     logo: '/logo.svg',

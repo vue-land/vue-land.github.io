@@ -12,4 +12,4 @@ It's also common to have shared, base components that are used throughout an app
 
 Folders called `composables` and `utilities` or `utils` are also pretty common.
 
-There are some example applications in the FAQ entry for [Can you show me a large, open-source Vue project that I can study?](/faq/large-example-applications.html), though some of those are using Nuxt, which places extra restrictions on their folder structure.
+There are some example applications in the FAQ entry for [Can you show me a large, open-source Vue project that I can study?](large-example-applications), though some of those are using Nuxt, which places extra restrictions on their folder structure.
