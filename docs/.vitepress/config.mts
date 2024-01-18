@@ -11,6 +11,16 @@ export default defineConfig({
     hostname: 'https://vue-land.github.io'
   },
 
+  transformHead({ page}) {
+    if (page !== '404.md') {
+      const canonicalUrl = `https://vue-land.github.io/${page}`
+        .replace(/index\.md$/, '')
+        .replace(/\.md$/, '')
+
+      return [['link', { rel: 'canonical', href: canonicalUrl }]]
+    }
+  },
+
   themeConfig: {
     logo: '/logo.svg',
 
