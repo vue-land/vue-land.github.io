@@ -7,6 +7,10 @@ export default defineConfig({
   outDir: '../dist',
   cleanUrls: true,
 
+  sitemap: {
+    hostname: 'https://vue-land.github.io'
+  },
+
   themeConfig: {
     logo: '/logo.svg',
 
