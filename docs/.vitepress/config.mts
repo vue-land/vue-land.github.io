@@ -39,17 +39,25 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'FAQ',
-        link: '/faq/',
+        text: 'FAQ Home',
+        link: '/faq/'
+      },
+      {
+        text: 'Learning',
         items: [
           {
             text: 'How should I learn Vue?',
             link: '/faq/learning-vue'
-          },
+          }
           // {
           //   text: 'Can you show me a large, open-source Vue project that I can study?',
           //   link: '/faq/large-example-applications'
-          // },
+          // }
+        ]
+      },
+      {
+        text: 'New project decisions',
+        items: [
           {
             text: 'Which Vue component library should I use?',
             link: '/faq/component-library'
@@ -69,7 +77,12 @@ export default defineConfig({
           // {
           //   text: 'I need users to stay logged in if they refresh the page. Should I use cookies or local storage?',
           //   link: '/faq/cookies-local-storage'
-          // },
+          // }
+        ]
+      },
+      {
+        text: 'Working with npm',
+        items: [
           {
             text: `How do I check which Vue version something is using?`,
             link: '/faq/checking-versions'
@@ -77,7 +90,12 @@ export default defineConfig({
           {
             text: 'How do I run an old project?',
             link: '/faq/running-old-projects'
-          },
+          }
+        ]
+      },
+      {
+        text: 'Deployment',
+        items: [
           {
             text: 'Why is there a <code>#</code> before my route path?',
             link: '/faq/hash-before-route-path'
@@ -97,7 +115,12 @@ export default defineConfig({
           {
             text: 'How do I add dynamic <code>&lt;meta&gt;</code> tags to my application?',
             link: '/faq/dynamic-meta-tags'
-          },
+          }
+        ]
+      },
+      {
+        text: 'Vue code patterns',
+        items: [
           // {
           //   text: 'How should my components communicate?',
           //   link: '/faq/component-communication'
@@ -145,23 +168,38 @@ export default defineConfig({
           {
             text: `Why can't I use the current route in <code>App.vue</code>?`,
             link: '/faq/accessing-the-route'
-          },
-          // {
-          //   text: `Why does my logging show an empty/missing value after I've loaded the data?`,
-          //   link: '/faq/logging-after-loading'
-          // },
-          // {
-          //   text: 'Why can I see my data in console logging, but if I try to access it I get undefined or an error?',
-          //   link: '/faq/logging-is-live'
-          // },
-          // {
-          //   text: 'When to use reactive() and ref()?',
-          //   link: '/faq/reactive-ref'
-          // },
-          // {
-          //   text: 'Why are the new value and old value the same in my watcher?',
-          //   link: '/faq/deep-watcher-values'
-          // },
+          }
+        ]
+      },
+      // {
+      //   text: 'Debugging',
+      //   items: [
+      //     {
+      //       text: `Why does my logging show an empty/missing value after I've loaded the data?`,
+      //       link: '/faq/logging-after-loading'
+      //     },
+      //     {
+      //       text: 'Why can I see my data in console logging, but if I try to access it I get undefined or an error?',
+      //       link: '/faq/logging-is-live'
+      //     }
+      //   ]
+      // },
+      // {
+      //   text: 'Common misunderstandings',
+      //   items: [
+      //     {
+      //       text: 'When to use reactive() and ref()?',
+      //       link: '/faq/reactive-ref'
+      //     },
+      //     {
+      //       text: 'Why are the new value and old value the same in my watcher?',
+      //       link: '/faq/deep-watcher-values'
+      //     }
+      //   ]
+      // }
+      {
+        text: 'Common tooling problems',
+        items: [
           // {
           //   text: 'Why do my dynamic images not work?',
           //   link: '/faq/dynamic-images'
