@@ -2,6 +2,13 @@
 
 Different libraries have different strengths, so the best choice for one project isn't necessarily the best choice for another. You're going to need to judge for yourself what works best for you and your project.
 
+You'll find lists of libraries for Vue 3 at:
+
+- https://ui-libs.vercel.app/
+- https://skirtles-code.github.io/vue-examples/component-libraries.html
+
+GitHub stars or npm download statistics can be useful when assessing the popularity of a library, but they need to be interpreted carefully. Newer libraries are at a massive disadvantage in those counts. Some libraries are particularly strong in a specific area, which may make them more suitable for your project than they would be for a more general audience.
+
 It's unlikely that anyone on Vue Land has enough personal experience to make a detailed assessment of more than two or three libraries. It takes months of use on a real project to properly understand the pros and cons of a library, and even then those experiences won't necessarily carry across to other projects.
 
 However, if there's a specific library that you're considering, somebody might be able to share their own experiences of using it.
@@ -20,13 +27,6 @@ It's also not an all-or-nothing decision. Some libraries will give you fully sty
 - [daisyUI](https://daisyui.com/) extends Tailwind CSS to add component-specific utility classes.
 - Libraries like [Headless UI](https://headlessui.com/) and [Radix Vue](https://www.radix-vue.com/) provide unstyled components that can be used to build your own.
 - [Tailwind UI](https://tailwindui.com/) and [shadcn-vue](https://www.shadcn-vue.com/) are large collections of example components that you can copy.
-
-If you do want a library that does it all for you, there are plenty to choose from. You'll find some suggestions listed at:
-
-- https://skirtles-code.github.io/vue-examples/component-libraries.html
-- https://ui-libs.vercel.app/
-
-GitHub stars or npm download statistics can be useful when assessing the popularity of a library, but they need to be interpreted carefully. Newer libraries are at a massive disadvantage in those counts. Some libraries are particularly strong in a specific area, which may make them more suitable for your project than they would be for a more general audience.
 
 ## Core features
 
