@@ -75,3 +75,18 @@ html:not(.dark) .VPSidebar {
 .VPSidebarItem.level-1.is-active .VPLink::before {
   border-left-color: var(--vp-c-brand-1);
 }
+
+/* Custom styling for quoting error messages and warnings. This might be better as a custom container, once they're supported */
+blockquote.quote-code-error {
+  background-color: var(--vp-custom-block-warning-bg);
+  border-color: var(--vp-custom-block-warning-border);
+  font-family: var(--vp-font-family-mono);
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 10px 10px 10px 20px;
+  white-space: pre-wrap;
+}
+
+.vp-doc blockquote.quote-code-error > p {
+  font-size: 12.25px;
+}
