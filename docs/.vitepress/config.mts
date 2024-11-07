@@ -171,6 +171,15 @@ export default defineConfig({
           }
         ]
       },
+      {
+        text: 'Pinia',
+        items: [
+          {
+            text: `Why am I getting an error about 'no active Pinia'?`,
+            link: '/faq/no-active-pinia'
+          }
+        ]
+      },
       // {
       //   text: 'Debugging',
       //   items: [

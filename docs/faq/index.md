@@ -61,6 +61,12 @@ Only about half the questions have complete answers. Those questions are listed 
 
 ---
 
+<!-- Pinia -->
+
+- [Why am I getting an error about 'no active Pinia'?](no-active-pinia)
+
+---
+
 <!-- Debugging -->
 
 - [Why does my logging show an empty/missing value after I've loaded the data?](logging-after-loading)

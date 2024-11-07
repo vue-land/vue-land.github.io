@@ -101,10 +101,12 @@ Thankfully, this is usually easy to fix. Use your package manager to remove `nod
 If you're using an older version of webpack with a new version of Node then you may see an error like this:
 
 > digital envelope routines::unsupported
+> {.quote-code-error}
 
 Or:
 
 > digital envelope routines::initialization error
+> {.quote-code-error}
 
 This includes Vue CLI projects, especially those on version 4.
 
