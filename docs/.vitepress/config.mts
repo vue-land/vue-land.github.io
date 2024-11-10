@@ -180,9 +180,9 @@ export default defineConfig({
           }
         ]
       },
-      // {
-      //   text: 'Debugging',
-      //   items: [
+      {
+        text: 'Debugging',
+        items: [
       //     {
       //       text: `Why does my logging show an empty/missing value after I've loaded the data?`,
       //       link: '/faq/logging-after-loading'
@@ -191,8 +191,12 @@ export default defineConfig({
       //       text: 'Why can I see my data in console logging, but if I try to access it I get undefined or an error?',
       //       link: '/faq/logging-is-live'
       //     }
-      //   ]
-      // },
+          {
+            text: 'Why is my <code>FormData</code> empty?',
+            link: '/faq/empty-formdata'
+          }
+        ]
+      },
       // {
       //   text: 'Common misunderstandings',
       //   items: [
