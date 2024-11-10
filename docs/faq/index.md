@@ -71,6 +71,7 @@ Only about half the questions have complete answers. Those questions are listed 
 
 - [Why does my logging show an empty/missing value after I've loaded the data?](logging-after-loading)
 - [Why can I see my data in console logging, but if I try to access it in my code I get `undefined` or an error?](logging-is-live)
+- [Why is my `FormData` empty?](empty-formdata)
 
 ---
 
