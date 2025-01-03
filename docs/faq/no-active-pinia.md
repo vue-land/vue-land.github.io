@@ -15,14 +15,71 @@ While this probably goes without saying, you should start by reading the page li
 
 Before we do a deep dive into what might be going wrong here, let's briefly cover some common problems that have quick fixes.
 
-### Quick fix 1 - missing `setup` attribute
+### Quick fix 1 - Call `app.use(pinia)` as early as possible
+
+As implied by the error message, you might need to move the call to `app.use(pinia)` to an earlier point in your code.
+
+In general, calls to `app.use(plugin)` need to happen before `app.mount(el)`, so the following example is unlikely to work for any plugin, not just Pinia:
+
+```js
+const pinia = createPinia()
+const app = createApp(App)
+
+// This is the wrong order, it won't work
+app.mount('#app') // [!code error]
+app.use(pinia) // [!code error]
+```
+
+The order plugins are used also matters, depending on what each plugin does. This example is using Pinia and Vue Router:
+
+```js
+const pinia = createPinia()
+const app = createApp(App)
+
+// These are in the wrong order
+app.use(router) // [!code error]
+app.use(pinia) // [!code error]
+
+app.mount('#app')
+```
+
+That example is calling `app.use(router)` before `app.use(pinia)`. Most of the time that won't matter, but if something in the router tries to use the store it can fail.
+
+In particular, the call to `app.use(router)` will immediately try to resolve any redirects. e.g.:
+
+```js
+export default createRouter({
+  // ...
+  routes: [
+    {
+      path: '/',
+      redirect() {
+        const authStore = useAuthStore() // [!code highlight]
+        return authStore.user ? '/home' : '/login'
+      }
+    },
+    // ...
+  ]
+})
+```
+
+The `redirect` function will be called as part of `app.use(router)`, before the call to `app.use(pinia)`. As a result, the call to `useAuthStore()` will fail.
+
+Here's a Playground that shows this failing:
+
+- [Broken Playground example](https://play.vuejs.org/#eNqNVE1P20AQ/Ssjt5IdKbGBphysQEMrpLZSWwSol7oHYw/xgr1r7a5JUJT/3tld23FCQD3kwzNvZt7Me8naq1LGwwflxR6raiE1rCGTmGq8qGvYwL0UFfhPDfoJ3wNcMc7SHlKbpy1IikajbHNh5B63adO8y6V1HboBCc8EVxpsLzgbzglGXZLgfYraBPSiXMKjCG4LVAipRGAcdIGwlIIvQMgcZcLNnEZh4LhQTRew42wPE6lEw3Xgv6Pv/sgbe2mji70D5XjPON5oQZP29084rizMsaX+F9TAYc+GlYFvOvtjWCccQGlaJ4ZgBGfnLgIgUTeS0zxqImPgTVnCxqTobWOpucsRtZnKJKs1KCqpzwdSXdtlfzNcDsWc9HrMIldJNfSgsapLIkJPALNBbUSRWdSnabbrcNA5P7AS8vkrU7Tm87gNumaHSfT1O9fqoOQQJ8EWeZkVwvLqEF2gN1IrAt07bUoSY8AhsOctHL34EOdgNDYQy0/F8MfJ0aoCUKe6iMGPfItySuVMYqZJvh4FrQMM+U7+4X7G0R2yVbqHGltK+EQzClGhD2ZaKRaM026uwvqAPlr7DGnZkp5aJuhkHLmO+6u9Xupm/Eet+fjbunB4e2PFHROt1/De3jE0M2BDlbs+copOqrQmhQWnBpZV0iZU4sUdz8Sb04goxyctRKkmac1MNvEKrWsVR1HD68dFSKyjF8D5aXgaTqOS3UWoqojxHFc0MPHaZRPP/oBf62eT85PwJPwY5WQSFwip1eROiiWptdvM2DvH6lV+XX5+FB5Pw+MjS8yRql40cr+Tt1o5xHwaTjt+2+gLkt0/CB1fK/LoPVvsnd7ozkqUv2rNyMM7EqRlKZbfbUzLBnuiWYHZ44H4g1o55leS/pzlEw6W06lcoHbpy5ufuKLvfbISeVMS+o3kNSpRNoajg31ueE60BzjL9pt1EuOLW3W50shVt5Qhaq9h8fbYX95YfUv3Qzjtr7j5B4vzcGA=)
+
+The same applies if you're using other Vue plugins, not just Vue Router.
+
+### Quick fix 2 - Missing `setup` attribute
 
 If you're trying to use the store in a component with `<script setup>`, make sure haven't forgotten the `setup` attribute. If you just write `<script>` it'll run too soon.
 
 For example:
 
 ```vue
-<script>
+<!-- This is wrong -->
+<script> // [!code error]
 import { ref } from 'vue'
 import { useProductsStore } from './products-store'
 
@@ -45,7 +102,7 @@ Here it is in a Playground:
 
 Change `<script>` to `<script setup>` and everything works fine.
 
-### Quick fix 2 - Invoking the store by mistake
+### Quick fix 3 - Invoking the store by mistake
 
 This example is using the Options API. The mistake is the line `...mapStores(useProductsStore())`. That should be `...mapStores(useProductsStore)` instead, without the parentheses. We need to pass in the function, not the store:
 
@@ -62,7 +119,7 @@ export default {
   },
   computed: {
     // This is wrong...
-    ...mapStores(useProductsStore())
+    ...mapStores(useProductsStore()) // [!code error]
   }
 }
 </script>
@@ -78,7 +135,7 @@ export default {
 
 - [Broken Playground example](https://play.vuejs.org/#eNp9VF1v2jAU/StWNokgFadf6gOiE9vUh03TVq17zEPd+AIujm3ZDkVC/Pdd20kIVPQBKb7n+vicY192Wc2Eoq8um2aiNtp6siOVBebhqzFkTxZW12S0aWBUqpOGR6EE61tMWB2awu4E0IIZQxNDqSqtnCdYIfeHc3L8jTssEvVoPCRHMJA0DvII4zpVat0on48+4fdonF20HiY1M+hJK3S1KxUhZQu4MpuSWAm1OYoqOGy81tJNmBEBLbOV98ZNi6JRZr2kla6Ld43zO3pHbwspXgpwdSEUhy0eWGYXHXeUeY4vgvNreo0cXDifChSpJi9Wvzmwx2R4/IRDfVZfh88v6dUtvbqMwpKoOhAFnn2p9hiQd5jyQixP4kEWIyTYP8YLvIWjmJiU+u1nrHnbQK+qWkG1TvUFk+4AvLptUvpoAb1sYGDFM7sEn+CHp9+wxe8erDVvJHZ/AP4Fp2UTRKa2b43iqHvQF+X+iNct1PKfe9h6UK5zFRzEOGJ/jPb7B94Pcm/o7SDG9kljgDNXWWH8l8F44Ot78hq9nxuOHcGX/GjRUOVdbO07aWHa+sQFIA4NbOM2DgvWSNwehHDmcS46pRZ8Y1W3IkTwKbm6vklL1NwZDvfceEC0baWU9nLzU1X5GActeS7VrOid4sJDbSTOJ64ImXGxiR/4+dJ4rxWZV1JU63schCEhXYCvVrng4zJrNxDySzPebi7S7kSKoxFYZ8XgLIz+OJ+Tvy6MSCg4jrQLv88x/c+8u4L74e581J0zukhZsSo+jz653soh9UCsJVCpl/lzsIUPkHzeCb5/jkF2V4EvS+3H2f4/xF7YQQ==)
 
-### Quick fix 3 - Put it in a function
+### Quick fix 4 - Put it in a function
 
 If the store call is outside a component, or in a component that isn't using `<script setup>`, make sure the call is inside a function. If it's in top-level code it will run too soon.
 
@@ -86,7 +143,7 @@ Here's an example using Vue Router:
 
 ```js
 // This won't work, because the call is at the top level
-const authStore = useAuthStore()
+const authStore = useAuthStore() // [!code error]
 
 router.beforeEach((to) => {
   // Do something involving authStore
@@ -98,7 +155,7 @@ We can fix this by moving the store call inside the `beforeEach()` callback:
 ```js
 router.beforeEach((to) => {
   // This should work
-  const authStore = useAuthStore()
+  const authStore = useAuthStore() // [!code highlight]
 
   // Do something involving authStore
 })
@@ -130,7 +187,7 @@ The error is shown when step 3 occurs before step 2. The Pinia instance must be 
 
 - [Playground example](https://play.vuejs.org/#eNp9kUtvwjAQhP+KlQtpBXYfqAekSrRVD+2hRW2PuYRkCYb4IdsBJJT/3rVDwqOFW7Qz+2V2vI1EyiVd2GgUcaGVcWRLMgOpgyetSU1mRgnSW1XQS+SJYcIlT/skhxmX8O2Ugc6vvYQbicyUtI5UFiZG5VXmbGN8PFyLe3on9vpIZ9eEUkquGamv9ojWgquntPjAlmLqx/0F8dYzdgQfqhNDer+JGxSJcZA7kiqBlqqI29+iEPV3FQ1EqrEyJbG0bSIJSXaCTaIRCRM/G2NrLIeVU6q0g1RzrybR3DltR4xVUi8LminB/hjHD/SBDlnJpwysYFzmsMEfJlG/ZYew53hBHN/RO2Tk3LpmQBE1mBq1tmCOYfj7QQ7ibL5WH9/Q2yG9vQnBmlDCgzynTmSNBTmL5c14cVIPUjQvwXxqx7Hco5rSslTr9zBzpoIuVTaHbPnPfGE3TdCJATxlBQeXuNQU4Br59fsDNvjdiQJfskT3BfEL8OErn7GxPVcyx9gHvpD2Lbw2l8WPfd04kLY9ygcNbQR/aPblwun7uPd02LVY/wJpITTr)
 
-But, in practice, it probably isn't that simple. In a real application, those 3 steps probably don't sit in the same file. More likely, they're in 3 separate files, something like this:
+But, in practice, it probably isn't that simple. In a real application, those 3 steps usually don't sit in the same file. More likely, they're in 3 separate files, something like this:
 
 ```js
 // useProductsStore.js
@@ -366,7 +423,7 @@ It's common to use a navigation guard to check whether a user is allowed to acce
 
 ```js
 // This won't work, because the call is at the top level
-const authStore = useAuthStore()
+const authStore = useAuthStore() // [!code error]
 
 router.beforeEach((to) => {
   if (to.name !== 'login' && !authStore.isLoggedIn) {
@@ -380,7 +437,7 @@ Grabbing the store outside the callback seems like a good idea, as it avoids cal
 ```js
 router.beforeEach((to) => {
   // This will work, as the call is now inside the callback
-  const authStore = useAuthStore()
+  const authStore = useAuthStore() // [!code highlight]
 
   if (to.name !== 'login' && !authStore.isLoggedIn) {
     return { name: 'login' }
@@ -389,6 +446,66 @@ router.beforeEach((to) => {
 ```
 
 Even if timing weren't an issue, there are other reasons why `useAuthStore()` should be called inside the navigation guard. Again, we'll discuss those [later](#why-does-pinia-work-this-way).
+
+### Using a property getter
+
+[Property getters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) are declared using functions, so in some cases they can be used to defer the store call.
+
+Consider this example:
+
+```js
+import { useHistoryStore } from './history-store'
+
+export default {
+  menuItems: [
+    {
+      text: 'Save',
+      data: useHistoryStore().history // This won't work // [!code error]
+    },
+    // ...
+  ]
+}
+```
+
+The call to `useHistoryStore()` is in top-level code, so we need to move it to a function. One way to achieve that would be to use a property getter:
+
+```js
+export default {
+  menuItems: [
+    {
+      text: 'Save',
+      get data() { // [!code highlight]
+        return useHistoryStore().history // [!code highlight]
+      } // [!code highlight]
+    },
+    // ...
+  ]
+}
+```
+
+Note the use of the `get` keyword to declare the property. The function will be called automatically when someone tries to access the `data` property, so the consuming code won't need to worry about the function call.
+
+### Using `computed()` or `toRef()`
+
+In the previous example we were working with non-reactive data, so we used a property getter.
+
+For properties inside reactive objects we can use `computed()` or `toRef()` to achieve a similar result. For example:
+
+```js
+export default reactive({
+  menuItems: [
+    {
+      text: 'Save',
+      data: computed(() => useHistoryStore().history) // [!code highlight]
+      // Alternatively:
+      //   data: toRef(() => useHistoryStore().history)
+    },
+    // ...
+  ]
+})
+```
+
+The `computed` ref will be automatically unwrapped by the proxy created by `reactive()`, so the consuming code doesn't need to use `.value` to access the value. We could also have used `ref()` instead of `reactive()`, the unwrapping of the nested ref would work the same way.
 
 ### An example with a component
 
@@ -399,7 +516,7 @@ This component is using an explicit `setup` function. Again, it might seem reaso
 import { ref } from 'vue'
 import { useProductsStore } from './products-store'
 
-const products = useProductsStore()
+const products = useProductsStore() // [!code error]
 
 export default {
   setup() {
