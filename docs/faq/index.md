@@ -1,3 +1,16 @@
+<script setup>
+import { h, resolveComponent } from 'vue'
+const Badge = resolveComponent('Badge')
+const Stub = () => h(
+  Badge,
+  {
+    text: 'stub',
+    title: 'Stub: The answer to this question is currently incomplete',
+    type: 'warning'
+  }
+)
+</script>
+
 # FAQ
 
 This FAQ aims to answer some of the most common programming questions that we get on the [Vue Land Discord server](https://chat.vuejs.org/).
@@ -5,7 +18,7 @@ This FAQ aims to answer some of the most common programming questions that we ge
 It is not a substitute for the official Vue documentation, available at <https://vuejs.org/>. Those docs include an FAQ for Vue itself at <https://vuejs.org/about/faq.html>.
 
 ::: warning Work in progress
-Only about half the questions have complete answers. Those questions are listed in the sidebar on the left. The other questions are just stubs.
+Only about half the questions have complete answers. Those questions are listed in the sidebar on the left. The other answers are just stubs.
 :::
 
 ---
@@ -13,7 +26,7 @@ Only about half the questions have complete answers. Those questions are listed 
 <!-- Learning -->
 
 - [How should I learn Vue?](learning-vue)
-- [Can you show me a large, open-source Vue project that I can study?](large-example-applications)
+- [Can you show me a large, open-source Vue project that I can study?](large-example-applications){.stub} <Stub />
 
 ---
 
@@ -21,9 +34,9 @@ Only about half the questions have complete answers. Those questions are listed 
 
 - [Which Vue component library should I use?](component-library)
 - [What folder structure should I use for my Vue project?](folder-structure)
-- [Can I use Nuxt features without using Nuxt?](nuxt-features)
+- [Can I use Nuxt features without using Nuxt?](nuxt-features){.stub} <Stub />
 - [Do Vue 2 components work with Vue 3?](vue-2-components-in-vue-3)
-- [I need users to stay logged in if they refresh the page. Should I use cookies or local storage?](cookies-local-storage)
+- [I need users to stay logged in if they refresh the page. Should I use cookies or local storage?](cookies-local-storage){.stub} <Stub />
 
 ---
 
@@ -46,16 +59,16 @@ Only about half the questions have complete answers. Those questions are listed 
 
 <!-- Vue code patterns -->
 
-- [How should my components communicate?](component-communication)
-- [How do I call a method in a child component?](invoking-child-methods)
-- [Why are my template refs not working?](template-refs)
-- [How can I share state with a composable?](sharing-state)
+- [How should my components communicate?](component-communication){.stub} <Stub />
+- [How do I call a method in a child component?](invoking-child-methods){.stub} <Stub />
+- [Why are my template refs not working?](template-refs){.stub} <Stub />
+- [How can I share state with a composable?](sharing-state){.stub} <Stub />
 - [How can I pass all slots through to a child component?](forwarding-slots)
-- [How can I make Vue 'wait' for the data before rendering?](delaying-rendering)
-- [Why isn't `v-html` rendering my components?](components-in-v-html)
+- [How can I make Vue 'wait' for the data before rendering?](delaying-rendering){.stub} <Stub />
+- [Why isn't `v-html` rendering my components?](components-in-v-html){.stub} <Stub />
 - [Can I create a local variable in my template?](template-local-variables)
-- [Can I use JavaScript classes for my reactive data?](reactivity-and-classes)
-- [Why does selecting one item select them all?](independent-selections)
+- [Can I use JavaScript classes for my reactive data?](reactivity-and-classes){.stub} <Stub />
+- [Why does selecting one item select them all?](independent-selections){.stub} <Stub />
 - [How do I create unique element ids with Vue?](unique-element-ids)
 - [Why can't I use the current route in `App.vue`?](accessing-the-route)
 
@@ -69,20 +82,30 @@ Only about half the questions have complete answers. Those questions are listed 
 
 <!-- Debugging -->
 
-- [Why does my logging show an empty/missing value after I've loaded the data?](logging-after-loading)
-- [Why can I see my data in console logging, but if I try to access it in my code I get `undefined` or an error?](logging-is-live)
+- [Why does my logging show an empty/missing value after I've loaded the data?](logging-after-loading){.stub} <Stub />
+- [Why can I see my data in console logging, but if I try to access it in my code I get `undefined` or an error?](logging-is-live){.stub} <Stub />
 - [Why is my `FormData` empty?](empty-formdata)
 
 ---
 
 <!-- Common Vue misunderstandings -->
 
-- [When to use `reactive()` and `ref()`?](reactive-ref)
-- [Why are the new value and old value the same in my watcher?](deep-watcher-values)
+- [When to use `reactive()` and `ref()`?](reactive-ref){.stub} <Stub />
+- [Why are the new value and old value the same in my watcher?](deep-watcher-values){.stub} <Stub />
 
 ---
 
 <!-- Common tooling problems -->
 
-- [Why do my dynamic images not work?](dynamic-images)
+- [Why do my dynamic images not work?](dynamic-images){.stub} <Stub />
 - [Why are my dynamic Tailwind classes not working?](missing-tailwind-classes)
+
+<style scoped>
+.stub {
+  opacity: 0.6;
+}
+
+.stub:hover {
+  opacity: 1;
+}
+</style>
