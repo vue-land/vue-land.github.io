@@ -177,6 +177,9 @@ export default defineConfig({
           {
             text: `Why am I getting an error about 'no active Pinia'?`,
             link: '/faq/no-active-pinia'
+          }, {
+            text: 'Why is my store cleared when I reload the page?',
+            link: '/faq/persisting-a-store'
           }
         ]
       },

@@ -77,6 +77,7 @@ Only about half the questions have complete answers. Those questions are listed 
 <!-- Pinia -->
 
 - [Why am I getting an error about 'no active Pinia'?](no-active-pinia)
+- [Why is my store cleared when I reload the page?](persisting-a-store)
 
 ---
 
