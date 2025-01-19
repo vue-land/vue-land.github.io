@@ -60,7 +60,7 @@ Only about half the questions have complete answers. Those questions are listed 
 <!-- Vue code patterns -->
 
 - [How should my components communicate?](component-communication){.stub} <Stub />
-- [How do I call a method in a child component?](invoking-child-methods){.stub} <Stub />
+- [How do I call a method of a child component?](invoking-child-methods)
 - [Why are my template refs not working?](template-refs){.stub} <Stub />
 - [How can I share state with a composable?](sharing-state){.stub} <Stub />
 - [How can I pass all slots through to a child component?](forwarding-slots)
