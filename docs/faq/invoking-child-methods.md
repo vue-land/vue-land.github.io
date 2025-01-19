@@ -2,7 +2,7 @@
 
 Calling a child method is rarely something that you should need to do in Vue. We often see this question asked on Vue Land, but once we dig a bit further it usually transpires that invoking a child component's method isn't actually the best way to solve the underlying problem. This is known as an [XY problem](https://xyproblem.info/).
 
-If you're trying to call a child method, you should first consider whether the problem would be better solved via props instead, or by moving the relevant responsibility out of the child component altogether.
+If you're trying to call a child method, you should first consider whether the problem would be better solved via props or `v-model` instead, or by moving the relevant responsibility out of the child component altogether. We'll explore some of those alternatives later.
 
 But there are valid use cases for invoking a child method. In the examples below we'll use a method to focus an element within the child.
 
@@ -140,3 +140,74 @@ If the logged value is `undefined`, the template ref is not being populated. The
 Also check that the logged value isn't an array. If you use a template ref inside a `v-for` then the value will be wrapped in an array, even if there's only one instance of the component. You'll need to use `childRef.value[0]` or `this.$refs.myChild[0]` in that case to read out the first entry.
 
 That array can also lead to misleading logging. Like with the earlier examples, expanding the array in the console will show the items currently in the array, which may differ from the items that were present when it was logged. The template ref will update the same array when the component re-renders, it doesn't create a new array each time.
+
+## Using props instead
+
+Consider this child component, which uses `defineExpose` to expose a method called `setCount`:
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const count = ref()
+
+// Don't do this! // [!code error]
+defineExpose({ // [!code error]
+  setCount(newCount) { // [!code error]
+    count.value = newCount // [!code error]
+  } // [!code error]
+}) // [!code error]
+</script>
+
+<template>
+  <div>{{ count ?? '?' }}</div>
+</template>
+```
+
+- [Full example in a Playground](https://play.vuejs.org/#eNqFU01z0zAQ/SuLe0g6ELvQdJgxaQuUHuAATNvhpIsjrWO1suSR5HyQyX9nJTsmlFIuifX27e5b6e02+dA06bLFJE9mjlvZeHDo2+aCaVk3xnrYQuvwDutGFR5vsIQdlNbUMKKs0cC6qqQSV4YOGrXvGWn2JxwaUQrT3GjngYdgqHj+qMV4VG9i5ug4sMtWcy+NDsp+FKrF8TL8HsOWaRiqpBFMiXNlWu17DtM7pmdZNxoNRQffN6ITwOyRcIvlOUv69iyBrGNVtvuft96TkOWkNJZ4GqSGM6K950ryB0IGifqYJTEH4BY9RDWw3YKGHSmiUllXiziz7EASHZ3fKATHTYOCkL7nS+g/4tR1YRdSTxSWPoezZv1uP2jIvUheJZ7ydSkX6b0zml43ZrGE06RSof3WhBt1LMm7eiFWKGVWXyLmbYuv9jivkD88gd+7dcBY8t2iQ7tElgwxT/rQd+Hr26+4pu8hWBvRKmI/E7xBZ1QbNHa0j60WJPuAF9V+ju6TenHnrtcetdsPFYQG5i7yWULOC4/8r9F/yz1NpzGP7pNu8W//PrcoZJ5H2zFYPViSfE6McfR0lsEno0cehAFfSfeCaYGl1Hi9bozDcVQ2eFnjKn70lifTh1PneKq6D++FU4fnLC/kErgqnCO/xkKTuaGXvCB3djovL2F0OSKjzjLi/t+h6VCl01coudATSTkuB04Xh5b8CTAv+MPCElfkcETjdqCxAm0Or5s10JtLAUfT6TSGuFGGIkcnJ2/jWUhHIjY5bZ2iq5qUCoPxAUpD7Z38iTm8OYnL0GMrlIuKNmRulIjofeu8LDcTehayC0UO5NW0UFWfcLovE8CVFL46wJpCCPLcU4u3+wVUi9N0)
+
+It does work, but it would be considered highly unusual to implement it that way in Vue.
+
+The normal way to do this is via props:
+
+```vue{2-4}
+<script setup>
+defineProps({
+  count: Number
+})
+</script>
+
+<template>
+  <div>{{ count ?? '?' }}</div>
+</template>
+```
+
+- [Full example in a Playground](https://play.vuejs.org/#eNqFU8Fy0zAQ/ZUd95B2aJJC02HGpC3Q6QEOpUMZTr440jpRK0seSU4TMvl3nuQkBAjlYnvfvl2/XT2tsg9NM5i3nOXZ2AunmkCeQ9tcFUbVjXWBVuS4ojVVztbUA7W3S93MlJY3FoFhEzaMwfB3OHZHSWGENT5QUzqAN7ZFwWVsfXwSk1VrRFDWxL9/L3XLx/P4PKFVYWi/aJBwlKZ3YdaFGQ875dCMIHDd6DIwIqLxHxJzEXtcFtlexyKjYUeeue49aUOAlHm/sg5cQ8rQBWjvhVbiCchOpDkpslRD9MCh00SrFRlaQxhaDbte4IyHe8oQ+rDUTF7YhiWQzT9f0eYjzV2XbqpMX3MVcrpoFu+288baq+w0C6g3lZoOHr01OMNUVWQCAyvN7ksTd+qLLO/6xVyptX3+nLDgWj7d4mLG4ukA/ugXESuye8ee3ZyLbJcL0MdYYEzfPtzxAt+7ZG1lq8F+IfmVvdVt1NjRPrZGQvYeL6n9lOymzPSbv10ENn47VBQamevELzJYLZ71v0b/Jfd8MEp12Ce2+LdhD1wHyZUyfO9s449Tx2SlnO7aegLJZg0fv+REqeYkdOk9/JNK+xOLzV7BLSmk62vqXfdgnPEQ3P87ZrDr0k1YajU1fYUan5PAIOzgF6JJKZ6mDlyZ0xGm6EDrJLucXjcLwhkoSUej0SilhNUWmaOzs7cplspDxDLHLdDYQL/SHI1IVFn83qsfnNObs2TODfbMajrDaiZWy4Q+tj6oatmHWXF8yOzJq2Hw2abgfNsmgs9Khtke1pRSwgOHLsL6J07no5Q=)
+
+This moves the data into the parent, which then passes it down via a prop.
+
+If the child also needs to be able to modify the data then it should emit an event to the parent, telling the parent to update the data. Combining a prop and event like this is usually implemented using `v-model`.
+
+## Using `v-model` instead
+
+This example is similar to the previous example, but it creates a two-way binding for `count` via `defineModel`. This allows both the child and parent to update the value of `count`:
+
+```vue{2}
+<script setup>
+const count = defineModel('count', { type: Number })
+
+function reset() {
+  // This will emit an event to the parent
+  count.value = undefined
+}
+</script>
+
+<template>
+  <div class="count-box">{{ count ?? '?' }}</div>
+  <button @click="reset">
+    Reset
+  </button>
+</template>
+```
+
+- [Full example in a Playground](https://play.vuejs.org/#eNqVVE1v00AQ/Ssj95BUNEmBVEgmbYGqB5AoiFacfHHscbztetfaXeeDKP+dt2vHTaGAuCTZN29m38y+yTZ6X9fjZcNRHM1sZkTtyLJr6otEiarWxtGWDBe0o8LoigagDvrQVSlkfqVxUKxcxxhPnsK+OlISlWllHdWpAXilGySc+9LDYx8sGpU5oZW//XsqGx4u/ecxbRNFh0njgCM1fCdql6jZpFUOzTg4rmqZOsaJaPaLxOWo0jnLOPOlzpPooHAS0aTNKU37PW+cg6LlqNAGXEVC0Rlo7zIpsgcgvVZ1nEQhh+iWcUuQuN2Soh30odSkrQXObHIgEEfrNpLJZrrmHEh35wvqfoT2q9QshBpJLlxMZ/X67b5tn3sRnUQO+aoQi/G91QpPGbKSKEPfQrL5UvvR2iSK23o+lkqpV58C5kzDJ3s8Kzl7eAa/t2uPJdFXw5bNkpOojznoYwzQh69vb3iN330QA28k2H8JfmOrZeM1trQPjcoh+4AX1H4MrhNqcWev146V3TflhXrmLvCTCI7zT/6n1h/lvh5PQx7miSn+7ttntqJ1cfAPTJhzIRR/9p4aDgI4OMHGuE3NMd001ZwN7Z4a3I/PDTtjTyZ0VwpLKyElcSUcpYp46a3qNLmSO+t7bijf2x8jCnfn/1yBXCwpk6m1cGyoMZprvOUF/Nm2cXlJg8sBrDqbgPvE+73Vg+re5HgwnP7L2OP+6rbzVIqFGgnk2JgytMgGtiaap9nDwoCbx3SEFltQm5xNTC/rNcEqIqej6XQaQpmWGpGj09M34ZwLCxGbGMsqMZ5RIdnvC1Ghcb0VP/Awr07DDnXYisWixGLNtcwDet9YJ4rNCE8NlyFyIK9bRdOmtLvo/5/yHL58BCpwyq7u6/1tHlyJ3JU9drjFu58bdecA)
