@@ -200,9 +200,9 @@ export default defineConfig({
           }
         ]
       },
-      // {
-      //   text: 'Common misunderstandings',
-      //   items: [
+      {
+        text: 'Common misunderstandings',
+        items: [
       //     {
       //       text: 'When to use reactive() and ref()?',
       //       link: '/faq/reactive-ref'
@@ -211,8 +211,12 @@ export default defineConfig({
       //       text: 'Why are the new value and old value the same in my watcher?',
       //       link: '/faq/deep-watcher-values'
       //     }
-      //   ]
-      // }
+          {
+            text: 'Is <code>emit</code> synchronous?',
+            link: '/faq/emit-synchronous'
+          }
+        ]
+      },
       {
         text: 'Common tooling problems',
         items: [
