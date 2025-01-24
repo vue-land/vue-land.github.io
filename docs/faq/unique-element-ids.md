@@ -10,7 +10,7 @@ In many cases, it's sufficient to use a simple counter to generate a suitable `i
 
 Put something like this in a `.js` file:
 
-```js
+```js [utils/id.js]
 let count = 0
 
 export function newId(prefix = 'id-') {

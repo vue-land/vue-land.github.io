@@ -47,6 +47,12 @@ html:not(.dark) {
   border-top: 0 none;
 }
 
+.vp-code-block-title-bar {
+  border: 1px solid var(--vue-land-code-block-border);
+  border-bottom: 0 none;
+  box-shadow: none;
+}
+
 /* Inline code in a custom block looks too much like a link */
 .custom-block.info code, .custom-block.tip code {
   color: var(--vp-code-color);
