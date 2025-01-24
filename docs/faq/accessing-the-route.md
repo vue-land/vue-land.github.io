@@ -146,3 +146,17 @@ import LoadingIndicator from './components/LoadingIndicator.vue'
 ```
 
 The trick here is that the `Component` in the slot props will be `undefined` if the route hasn't resolved yet.
+
+## Using `location` instead
+
+The examples above used `meta`, which is tied to the route. But sometimes we might not need the route itself, we only need information that is present in the URL. Rather than waiting for Vue Router to resolve the route, we could parse the URL ourselves.
+
+Let's imagine we have a URL like `http://example.com/users?page=1`. We could parse that using something like this:
+
+```js
+const path = location.pathname                       // '/users'
+const search = location.search                       // '?page=1'
+const page = new URLSearchParams(search).get('page') // '1'
+```
+
+Reference: <https://developer.mozilla.org/en-US/docs/Web/API/Location>
