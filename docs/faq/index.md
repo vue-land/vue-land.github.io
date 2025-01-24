@@ -93,6 +93,7 @@ Only about half the questions have complete answers. Those questions are listed 
 
 - [When to use `reactive()` and `ref()`?](reactive-ref){.stub} <Stub />
 - [Why are the new value and old value the same in my watcher?](deep-watcher-values){.stub} <Stub />
+- [Is `emit` synchronous?](emit-synchronous)
 
 ---
 
