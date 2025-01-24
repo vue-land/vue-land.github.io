@@ -125,10 +125,10 @@ export default defineConfig({
           //   text: 'How should my components communicate?',
           //   link: '/faq/component-communication'
           // },
-          // {
-          //   text: 'How do I call a method in a child component?',
-          //   link: '/faq/invoking-child-methods'
-          // },
+          {
+            text: 'How do I call a method of a child component?',
+            link: '/faq/invoking-child-methods'
+          },
           // {
           //   text: 'Why are my template refs not working?',
           //   link: '/faq/template-refs'
