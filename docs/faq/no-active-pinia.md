@@ -189,15 +189,13 @@ The error is shown when step 3 occurs before step 2. The Pinia instance must be 
 
 But, in practice, it probably isn't that simple. In a real application, those 3 steps usually don't sit in the same file. More likely, they're in 3 separate files, something like this:
 
-```js
-// useProductsStore.js
+```js [useProductsStore.js]
 export const useProductsStore = defineStore('products', {
   // ...
 })
 ```
 
-```js
-// main.js
+```js [main.js]
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from 'App.vue'
@@ -221,15 +219,13 @@ To understand that, we first need to understand `import`, and specifically how J
 
 Let's start with a plain `.js` example. It works much the same way with `.ts` and we'll stick to `.js` throughout this page. It's a bit more complicated with `.vue` files, but we'll cover those later.
 
-```js
-// main.js
+```js [main.js]
 import { data } from './store.js'
 
 console.log('main.js', data)
 ```
 
-```js
-// store.js
+```js [store.js]
 const data = { name: 'Vue' }
 
 console.log('store.js', data)
@@ -382,8 +378,7 @@ Generally speaking, you shouldn't be trying to access the store in top-level cod
 
 Let's say we have some code like this:
 
-```js
-// product-utils.js
+```js [product-utils.js]
 import { useProductsStore } from '@/stores/products'
 
 const products = useProductsStore()
@@ -401,8 +396,7 @@ When exactly this happens will depend on exactly where this file is imported. If
 
 In the example above, we might fix it by moving the call to `useProductsStore()` inside `fetchProduct()`:
 
-```js
-// product-utils.js
+```js [product-utils.js]
 import { useProductsStore } from '@/stores/products'
 
 export function fetchProduct(id) {
@@ -572,8 +566,7 @@ This can cause a lot of confusion, as top-level code can appear to work in some 
 
 Let's revisit an example we saw earlier:
 
-```js
-// product-utils.js
+```js [product-utils.js]
 import { useProductsStore } from '@/stores/products'
 
 const products = useProductsStore()
@@ -607,7 +600,7 @@ The Pinia instance will be created when the page first loads. If you edit one of
 
 Let's imagine we have code like this in our `main.js`:
 
-```js
+```js [main.js]
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
@@ -630,7 +623,7 @@ Yes, we can. This almost certainly isn't a good idea, but it can work.
 
 For example, let's move some of the code above into a file called `app-create.js`:
 
-```js
+```js [app-create.js]
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
@@ -643,7 +636,7 @@ export { app }
 
 Then, we could change our `main.js` to this:
 
-```js
+```js [main.js]
 import { app } from './app-create'
 import router from './router'
 
@@ -664,8 +657,7 @@ In the case of Pinia, it aims to be global in the same way that [`app.config.glo
 
 Let's imagine you choose not to use Pinia and instead do something like this:
 
-```js
-// store.js
+```js [store.js]
 import { reactive } from 'vue'
 
 export const state = reactive({})
@@ -731,7 +723,7 @@ import { loadProducts } from './products'
 
 So far, no store. Now let's take a look at `products.js`:
 
-```js
+```js [products.js]
 import { useProductsStore } from '@/stores/products'
 
 export async function loadProducts() {

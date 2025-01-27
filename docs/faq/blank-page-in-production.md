@@ -121,7 +121,7 @@ Usually it's fairly obvious when this is happening, as the rest of the page rend
 
 However, it can be tricky to tell whether routing is the problem if `App.vue` doesn't contain anything else. For example, imagine that `App.vue` just contains this:
 
-```vue
+```vue [App.vue]
 <template>
   <RouterView />
 </template>
@@ -131,7 +131,7 @@ As `App.vue` only renders `<RouterView />`, we can't easily tell whether the pro
 
 To help isolate the source of the problem, it is worth adding some extra temporary code to `App.vue`, to confirm that it is rendering correctly. For example:
 
-```vue
+```vue [App.vue]
 <template>
   <h1>Hello world!</h1>
   <RouterView />

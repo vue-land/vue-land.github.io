@@ -58,8 +58,7 @@ It is still possible to access `useRoute()` or `this.$route` during that initial
 
 Consider the following example. It tries to use the current route in `App.vue` to decide which layout to wrap around the `RouterView`:
 
-```vue
-<!-- App.vue -->
+```vue [App.vue]
 <script setup>
 import DefaultLayout from './layouts/DefaultLayout.vue'
 </script>
@@ -79,10 +78,7 @@ There are a few ways we might fix this problem.
 
 Vue Router provides the method [`isReady()`](https://router.vuejs.org/api/interfaces/Router.html#isReady), which can be used to wait until it has resolved the route. We could use it to defer mounting the application until the route is ready:
 
-```js
-// main.js or main.ts
-// ...
-
+```js [main.js]
 const app = createApp(App)
 
 app.use(router)
@@ -102,8 +98,7 @@ Depending on your application, that might not matter. A brief pause before the p
 
 With a bit of extra effort, we could show a loading indicator if the route isn't resolved yet. There are a few ways we might implement this. One approach would be to use `router.isReady()` inside `App.vue` to track when the router is ready. e.g.:
 
-```vue
-<!-- App.vue -->
+```vue [App.vue]
 <script setup>
 import { shallowRef } from 'vue'
 import { useRouter } from 'vue-router'
@@ -128,8 +123,7 @@ Here we're using the `LoadingIndicator` component in place of the layout. The `L
 
 We could also implement this using the slot of `RouterView`:
 
-```vue
-<!-- App.vue -->
+```vue [App.vue]
 <script setup>
 import DefaultLayout from './layouts/DefaultLayout.vue'
 import LoadingIndicator from './components/LoadingIndicator.vue'

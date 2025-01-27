@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 
 export default defineConfig({
   title: 'Vue Land FAQ',
@@ -19,6 +20,23 @@ export default defineConfig({
 
       return [['link', { rel: 'canonical', href: canonicalUrl }]]
     }
+  },
+
+  markdown: {
+    config(md) {
+      md.use(groupIconMdPlugin)
+    },
+  },
+
+  vite: {
+    plugins: [
+      groupIconVitePlugin({
+        customIcon: {
+          '.vue': 'vscode-icons:file-type-vue',
+          'vue': 'vscode-icons:file-type-js'
+        }
+      })
+    ],
   },
 
   themeConfig: {
